@@ -1,11 +1,12 @@
-Marcus Oliver,5000.0,2023-NOV-10,Unpaid
-Jeayan Reynaldo,2500.0,2023-DEC-05,Paid
-Carl Joshua,3900.0,2024-JAN-16,Unpaid
-Paul Mandap,4200.0,2024-FEB-12,Paid
-Gus ,30000.0,2024-APR-20,Unpaid
-Gustavo Fring,30000.0,2024-APR-15,Unpaid
-gus,2000.0,2024-APR-15,Unpaid
-Vespa,1500.0,2024-SEP-10,Paid
-Honda,3500.0,2024-OCT-20,Paid
-Yamaha,5100.0,2024-JUN-14,Paid
-Michael Raffi,5500.0,2024-APR-25,Unpaid
+Marcus Oliver,5000.0, 2023-NOV-10,Unpaid,House Loan
+Paul Mandap,10000.0, 2023-DEC-20,Paid,Car Loan
+Carl Ricafrente,3000.0, 2023-SEP-30,Unpaid,Car Loan
+Jeayan Reynaldo,8000.0, 2023-OCT-15,Unpaid,House Loan
+Dan Lester,7000.0, 2023-NOV-05,Unpaid,Car Loan
+Miguel Santos,5500.0, 2023-NOV-25,Unpaid,Business Loan
+Sophia Cruz,12000.0, 2023-DEC-15,Unpaid,Education Loan
+Ethan Garcia,3200.0, 2023-SEP-12,Paid,House Loan
+Isabella Reyes,8500.0, 2023-OCT-30,Unpaid,House Loan
+Liam Rodriguez,6800.0, 2023-NOV-20,Unpaid,Car Loan
+MK,12000.0,2024-NOV-24,Unpaid,Business Loan
+Oliver,12344.0,2023-OCT-04,Unpaid,Education Loan

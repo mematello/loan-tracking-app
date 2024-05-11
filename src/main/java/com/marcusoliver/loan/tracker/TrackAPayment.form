@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -40,6 +40,7 @@
                           <Component id="jbtnAmountRequested" min="-2" pref="110" max="-2" attributes="0"/>
                           <Component id="jbtnDate" min="-2" pref="110" max="-2" attributes="0"/>
                           <Component id="jbtnStatus" min="-2" pref="110" max="-2" attributes="0"/>
+                          <Component id="loanType" min="-2" pref="110" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -71,6 +72,8 @@
                       <Component id="jbtnDate" min="-2" pref="40" max="-2" attributes="0"/>
                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                       <Component id="jbtnStatus" min="-2" pref="40" max="-2" attributes="0"/>
+                      <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                      <Component id="loanType" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -168,5 +171,13 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="loanType">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Type of Loan"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="loanTypeActionPerformed"/>
+      </Events>
+    </Component>
   </SubComponents>
 </Form>

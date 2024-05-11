@@ -44,7 +44,7 @@ public class AddALoan extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         loanType.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        loanType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Car Loan", "House Loan" }));
+        loanType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Car Loan", "House Loan", "Education Loan", "Business Loan" }));
         loanType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loanTypeActionPerformed(evt);
@@ -193,11 +193,12 @@ public class AddALoan extends javax.swing.JFrame {
         String borrowerName = jTextField2.getText();
         double amountRequested = Double.parseDouble(jTextField1.getText());
         String dueDate = jTextField3.getText();
+        String selectedLoanType = loanType.getSelectedItem().toString();
         
 
         // Create an instance of TrackAPayment and update the table with loan data
         TrackAPayment trackAPayment = new TrackAPayment();
-        trackAPayment.updateTable(borrowerName, amountRequested, dueDate);
+        trackAPayment.updateTable(borrowerName, amountRequested, dueDate, selectedLoanType);
 
         // Show TrackAPayment frame
         trackAPayment.setVisible(true);
