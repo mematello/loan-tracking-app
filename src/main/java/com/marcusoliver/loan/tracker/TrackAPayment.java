@@ -379,8 +379,38 @@ public class TrackAPayment extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnBackActionPerformed
 
     private void jtblTrackPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblTrackPaymentMouseClicked
-        // TODO add your handling code here:
+        int rowIndex = jtblTrackPayment.getSelectedRow();
+        if (rowIndex != -1) { // Check if a row is selected
+            String borrowerName = (String) jtblTrackPayment.getValueAt(rowIndex, 0); // Borrower's Name
+            String newStatus = JOptionPane.showInputDialog(this, "Enter new status for " + borrowerName + ":");
+            if (newStatus != null && !newStatus.isEmpty()) {
+                updateStatus(borrowerName, newStatus);
+            }
+        }
     }//GEN-LAST:event_jtblTrackPaymentMouseClicked
+    
+    private void updateStatus(String borrowerName, String newStatus) {
+        DefaultTableModel model = (DefaultTableModel) jtblTrackPayment.getModel();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            String name = (String) model.getValueAt(i, 0);
+            if (name.equals(borrowerName)) {
+                model.setValueAt(newStatus, i, 3); // Update the status in the table
+                saveLoanData(); // Save the updated data to the file
+                break;
+            }
+        }
+    }
+
+    
+    private void updateStatusFromTable(String borrowerName) {
+        String newStatus = JOptionPane.showInputDialog(this, "Enter new status for " + borrowerName + ":");
+        if (newStatus != null && !newStatus.isEmpty()) {
+            updateStatus(borrowerName, newStatus);
+        }
+    }
+    
+    
+    
     
     private boolean ascendingOrder = true; // Flag to track sorting order
     private String previousSortedLoanType = ""; // Track the previously sorted loan type

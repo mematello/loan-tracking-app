@@ -1,12 +1,12 @@
 Marcus Oliver,5000.0, 2023-NOV-10,Unpaid,House Loan
-Paul Mandap,10000.0, 2023-DEC-20,Paid,Car Loan
-Carl Ricafrente,3000.0, 2023-SEP-30,Unpaid,Car Loan
-Jeayan Reynaldo,8000.0, 2023-OCT-15,Unpaid,House Loan
-Dan Lester,7000.0, 2023-NOV-05,Unpaid,Car Loan
-Miguel Santos,5500.0, 2023-NOV-25,Unpaid,Business Loan
-Sophia Cruz,12000.0, 2023-DEC-15,Unpaid,Education Loan
 Ethan Garcia,3200.0, 2023-SEP-12,Paid,House Loan
+Oliver,12344.0,2023-OCT-04,Paid,Education Loan
+Paul Mandap,10000.0, 2023-DEC-20,Paid,Car Loan
+Dan Lester,7000.0, 2023-NOV-05,Paid,Car Loan
+Liam Rodriguez,6800.0, 2023-NOV-20,Paid,Car Loan
+Jeayan Reynaldo,8000.0, 2023-OCT-15,Unpaid,House Loan
 Isabella Reyes,8500.0, 2023-OCT-30,Unpaid,House Loan
-Liam Rodriguez,6800.0, 2023-NOV-20,Unpaid,Car Loan
+Sophia Cruz,12000.0, 2023-DEC-15,Unpaid,Education Loan
+Carl Ricafrente,3000.0, 2023-SEP-30,Unpaid,Car Loan
+Miguel Santos,5500.0, 2023-NOV-25,Unpaid,Business Loan
 MK,12000.0,2024-NOV-24,Unpaid,Business Loan
-Oliver,12344.0,2023-OCT-04,Unpaid,Education Loan
