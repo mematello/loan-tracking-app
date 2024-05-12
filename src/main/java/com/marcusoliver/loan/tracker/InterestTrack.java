@@ -7,6 +7,7 @@ package com.marcusoliver.loan.tracker;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -26,13 +27,46 @@ public class InterestTrack extends javax.swing.JFrame {
     
     
     private void loadLoanData() {
+        DefaultTableModel model = (DefaultTableModel) jtblInterestTrack.getModel();
+        model.setRowCount(0); // Reset the row count to remove existing rows
+
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            DefaultTableModel model = (DefaultTableModel) jtblInterestTrack.getModel();
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
                 if (parts.length >= 5) { // Check if the line has at least 5 elements
-                    model.addRow(new Object[]{parts[0], Double.parseDouble(parts[1]), parts[3], parts[2], parts[4]});
+                    String borrowerName = parts[0];
+                    double amountRequested = Double.parseDouble(parts[1]);
+                    String startDate = ""; // Blank start date
+                    String status = parts[3];
+                    String endDate = parts[2]; // End date or paid date
+                    String loanType = parts[4];
+                    double interestRate = 0.0; // Default interest rate
+
+                    // Determine interest rate based on loan type
+                    switch (loanType) {
+                        case "Education Loan":
+                            interestRate = 0.01; // 1%
+                            break;
+                        case "House Loan":
+                            interestRate = 0.02; // 2%
+                            break;
+                        case "Business Loan":
+                            interestRate = 0.03; // 3%
+                            break;
+                        case "Car Loan":
+                            interestRate = 0.04; // 4%
+                            break;
+                        default:
+                            // Handle unknown loan types
+                            break;
+                    }
+
+                    // Calculate interest amount
+                    double interestAmount = amountRequested * interestRate;
+
+                    // Add the row to the table model
+                    model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate * 100});
                 } else {
                     // Handle the case where the line has fewer than 5 elements
                     // You can choose to skip the line, log an error, or take any other appropriate action
@@ -40,9 +74,9 @@ public class InterestTrack extends javax.swing.JFrame {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            // Handle any IOException that occurs during file reading
+            JOptionPane.showMessageDialog(this, "Error loading interest data: " + e.getMessage());
         }
+
     }
     /**
      * This method is called from within the constructor to initialize the form.
