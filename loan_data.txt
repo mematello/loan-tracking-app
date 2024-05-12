@@ -10,3 +10,5 @@ Sophia Cruz,12000.0, 2023-DEC-15,Unpaid,Education Loan
 Carl Ricafrente,3000.0, 2023-SEP-30,Unpaid,Car Loan
 Miguel Santos,5500.0, 2023-NOV-25,Unpaid,Business Loan
 MK,12000.0,2024-NOV-24,Unpaid,Business Loan
+Bernardo,8990.0,2025-05-08,Unpaid,Education Loan
+Poly,6000.0,2025-10-10,Unpaid,Business Loan

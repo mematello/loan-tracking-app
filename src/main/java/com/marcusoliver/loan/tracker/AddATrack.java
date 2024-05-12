@@ -26,21 +26,21 @@ public class AddATrack extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jbtnAddLoan = new javax.swing.JButton();
         jbtnTrackPayment = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setLayout(null);
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setText("Loan Tracker");
-        jPanel1.add(jLabel1);
-        jLabel1.setBounds(390, 70, 300, 64);
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(480, 180, 300, 64);
 
         jbtnAddLoan.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jbtnAddLoan.setText("Add a loan");
@@ -49,8 +49,8 @@ public class AddATrack extends javax.swing.JFrame {
                 jbtnAddLoanActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnAddLoan);
-        jbtnAddLoan.setBounds(270, 270, 230, 120);
+        getContentPane().add(jbtnAddLoan);
+        jbtnAddLoan.setBounds(370, 310, 230, 120);
 
         jbtnTrackPayment.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jbtnTrackPayment.setText("Track a Payment");
@@ -59,8 +59,8 @@ public class AddATrack extends javax.swing.JFrame {
                 jbtnTrackPaymentActionPerformed(evt);
             }
         });
-        jPanel1.add(jbtnTrackPayment);
-        jbtnTrackPayment.setBounds(550, 270, 290, 55);
+        getContentPane().add(jbtnTrackPayment);
+        jbtnTrackPayment.setBounds(620, 310, 290, 55);
 
         jButton1.setText("Back");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -73,8 +73,8 @@ public class AddATrack extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1);
-        jButton1.setBounds(10, 10, 110, 50);
+        getContentPane().add(jButton1);
+        jButton1.setBounds(10, 10, 90, 30);
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 32)); // NOI18N
         jButton2.setText("Track an Interest");
@@ -83,43 +83,36 @@ public class AddATrack extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2);
-        jButton2.setBounds(550, 330, 290, 60);
+        getContentPane().add(jButton2);
+        jButton2.setBounds(620, 370, 290, 60);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1053, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\loanTracker\\loan-tracking-app\\src\\main\\java\\com\\marcusoliver\\loan\\tracker\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, 0, 1280, 720);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jbtnAddLoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddLoanActionPerformed
-        // TODO add your handling code here:
-        AddALoan al = new  AddALoan();
-        al.setVisible(true);
-        al.show();
-        dispose();
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        InterestTrack it = new InterestTrack();
+        // Set the size of the JFrame to match the screen dimensions
+        it.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-    }//GEN-LAST:event_jbtnAddLoanActionPerformed
+        // Center the JFrame on the screen
+        it.setLocationRelativeTo(null);
 
-    private void jbtnTrackPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnTrackPaymentActionPerformed
-        TrackAPayment tp = new  TrackAPayment();
-        tp.setVisible(true);
+        // Make the JFrame visible
+        it.setVisible(true);
+        it.setVisible(true);
         dispose();
-    }//GEN-LAST:event_jbtnTrackPaymentActionPerformed
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        UserInfo ui = new UserInfo();
+        ui.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
@@ -128,17 +121,37 @@ public class AddATrack extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton1MouseClicked
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        UserInfo ui = new UserInfo();
-        ui.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jbtnTrackPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnTrackPaymentActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        InterestTrack it = new InterestTrack();
-        it.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    TrackAPayment tp = new  TrackAPayment();
+    // Set the size of the JFrame to match the screen dimensions
+    tp.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+    // Center the JFrame on the screen
+    tp.setLocationRelativeTo(null);
+
+    // Make the JFrame visible
+    tp.setVisible(true);
+    tp.setVisible(true);
+    dispose();
+    }//GEN-LAST:event_jbtnTrackPaymentActionPerformed
+
+    private void jbtnAddLoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddLoanActionPerformed
+        // Create an instance of AddALoan
+    AddALoan al = new AddALoan();
+
+    // Set the size of the JFrame to match the screen dimensions
+    al.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+    // Center the JFrame on the screen
+    al.setLocationRelativeTo(null);
+
+    // Make the JFrame visible
+    al.setVisible(true);
+
+    // Close the current frame
+    dispose();
+    }//GEN-LAST:event_jbtnAddLoanActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,6 +184,9 @@ public class AddATrack extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 AddATrack at = new AddATrack();
+                // Set the size of the JFrame to match the screen dimensions
+                at.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                at.setLocationRelativeTo(null); // Center the JFrame on the screen
                 at.setVisible(true);
             }
         });
@@ -180,7 +196,7 @@ public class AddATrack extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jbtnAddLoan;
     private javax.swing.JButton jbtnTrackPayment;
     // End of variables declaration//GEN-END:variables

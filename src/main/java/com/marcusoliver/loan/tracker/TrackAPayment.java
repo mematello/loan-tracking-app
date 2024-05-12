@@ -88,15 +88,23 @@ public class TrackAPayment extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jtblTrackPayment = new javax.swing.JTable();
         loanType = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        setSize(new java.awt.Dimension(1280, 720));
+        getContentPane().setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Track a Payment");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(6, 36, 420, 64);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel2.setText("Sort By:");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(836, 66, 100, 32);
 
         jbtnName.setText("Name");
         jbtnName.addActionListener(new java.awt.event.ActionListener() {
@@ -104,6 +112,8 @@ public class TrackAPayment extends javax.swing.JFrame {
                 jbtnNameActionPerformed(evt);
             }
         });
+        getContentPane().add(jbtnName);
+        jbtnName.setBounds(826, 106, 110, 40);
 
         jbtnAmountRequested.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jbtnAmountRequested.setText("Amount Request");
@@ -112,6 +122,8 @@ public class TrackAPayment extends javax.swing.JFrame {
                 jbtnAmountRequestedActionPerformed(evt);
             }
         });
+        getContentPane().add(jbtnAmountRequested);
+        jbtnAmountRequested.setBounds(826, 156, 110, 40);
 
         jbtnDate.setText("Date");
         jbtnDate.addActionListener(new java.awt.event.ActionListener() {
@@ -119,6 +131,8 @@ public class TrackAPayment extends javax.swing.JFrame {
                 jbtnDateActionPerformed(evt);
             }
         });
+        getContentPane().add(jbtnDate);
+        jbtnDate.setBounds(826, 206, 110, 40);
 
         jbtnStatus.setText("Status");
         jbtnStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -126,6 +140,8 @@ public class TrackAPayment extends javax.swing.JFrame {
                 jbtnStatusActionPerformed(evt);
             }
         });
+        getContentPane().add(jbtnStatus);
+        jbtnStatus.setBounds(826, 256, 110, 40);
 
         jbtnBack.setText("Back");
         jbtnBack.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -138,6 +154,8 @@ public class TrackAPayment extends javax.swing.JFrame {
                 jbtnBackActionPerformed(evt);
             }
         });
+        getContentPane().add(jbtnBack);
+        jbtnBack.setBounds(6, 6, 72, 23);
 
         jtblTrackPayment.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -155,62 +173,24 @@ public class TrackAPayment extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jtblTrackPayment);
 
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(6, 106, 800, 288);
+
         loanType.setText("Type of Loan");
         loanType.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loanTypeActionPerformed(evt);
             }
         });
+        getContentPane().add(loanType);
+        loanType.setBounds(826, 306, 110, 40);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbtnBack)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(410, 410, 410)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jbtnName, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbtnAmountRequested, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbtnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jbtnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(loanType, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbtnBack)
-                .addGap(7, 7, 7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(jLabel2)))
-                .addGap(6, 6, 6)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbtnName, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(jbtnAmountRequested, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(jbtnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(jbtnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(loanType, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\loanTracker\\loan-tracking-app\\src\\main\\java\\com\\marcusoliver\\loan\\tracker\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
+        jLabel3.setText("jLabel3");
+        jLabel3.setMaximumSize(new java.awt.Dimension(1920, 720));
+        jLabel3.setPreferredSize(new java.awt.Dimension(1280, 720));
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(0, 0, 1280, 720);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -541,6 +521,7 @@ public class TrackAPayment extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbtnAmountRequested;
     private javax.swing.JButton jbtnBack;

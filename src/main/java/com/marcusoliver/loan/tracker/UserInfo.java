@@ -33,20 +33,29 @@ public class UserInfo extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jtxtName = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        getContentPane().setLayout(null);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel2.setText("WELCOME TO DSA LOANS ");
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(330, 130, 620, 64);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Enter your name to proceed:");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(330, 240, 328, 32);
 
         jtxtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtNameActionPerformed(evt);
             }
         });
+        getContentPane().add(jtxtName);
+        jtxtName.setBounds(330, 280, 380, 30);
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton1.setText("Submit");
@@ -55,40 +64,13 @@ public class UserInfo extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(330, 320, 110, 30);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 961, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 155, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(85, 85, 85)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel1)
-                                .addComponent(jtxtName, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGap(0, 156, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 558, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 107, Short.MAX_VALUE)
-                    .addComponent(jLabel2)
-                    .addGap(66, 66, 66)
-                    .addComponent(jLabel1)
-                    .addGap(30, 30, 30)
-                    .addComponent(jtxtName, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(40, 40, 40)
-                    .addComponent(jButton1)
-                    .addGap(0, 107, Short.MAX_VALUE)))
-        );
+        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\loanTracker\\loan-tracking-app\\src\\main\\java\\com\\marcusoliver\\loan\\tracker\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
+        jLabel3.setText("jLabel3");
+        getContentPane().add(jLabel3);
+        jLabel3.setBounds(0, 0, 1280, 720);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -105,11 +87,10 @@ public class UserInfo extends javax.swing.JFrame {
         if (!name.isEmpty()) {
             // Display the greeting message
             JOptionPane.showMessageDialog(this, "Hello, " + name + "!");
-
-            // Create an instance of AddTrack and set it to fullscreen
+            
             AddATrack at = new AddATrack();
             at.setVisible(true);
-            dispose();
+            dispose(); // Close the current JFrame
         } else {
             // Display an error message if the name is empty
             JOptionPane.showMessageDialog(this, "Please enter your name!");
@@ -146,7 +127,14 @@ public class UserInfo extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UserInfo().setVisible(true);
+                // Create an instance of UserInfo
+            UserInfo ui = new UserInfo();
+            
+            // Set the size of the JFrame to match the screen dimensions
+            ui.setExtendedState(JFrame.MAXIMIZED_BOTH);
+            ui.setLocationRelativeTo(null); // Center the JFrame on the screen
+            // Make the JFrame visible
+            ui.setVisible(true);
             }
         });
     }
@@ -155,6 +143,7 @@ public class UserInfo extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JTextField jtxtName;
     // End of variables declaration//GEN-END:variables
 }

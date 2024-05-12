@@ -91,11 +91,15 @@ public class InterestTrack extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jtblInterestTrack = new javax.swing.JTable();
         btn_back = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(null);
 
         lbl_trackInt.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lbl_trackInt.setText("Tracking Interests");
+        getContentPane().add(lbl_trackInt);
+        lbl_trackInt.setBounds(21, 73, 320, 48);
 
         jtblInterestTrack.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -110,36 +114,22 @@ public class InterestTrack extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jtblInterestTrack);
 
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(21, 155, 974, 339);
+
         btn_back.setText("Back");
         btn_back.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_backActionPerformed(evt);
             }
         });
+        getContentPane().add(btn_back);
+        btn_back.setBounds(21, 32, 72, 23);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_back)
-                    .addComponent(lbl_trackInt)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 974, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(btn_back)
-                .addGap(18, 18, 18)
-                .addComponent(lbl_trackInt)
-                .addGap(34, 34, 34)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\loanTracker\\loan-tracking-app\\src\\main\\java\\com\\marcusoliver\\loan\\tracker\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1321, 720);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -187,6 +177,7 @@ public class InterestTrack extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_back;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jtblInterestTrack;
     private javax.swing.JLabel lbl_trackInt;
