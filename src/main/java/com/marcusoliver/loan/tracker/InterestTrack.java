@@ -4,19 +4,46 @@
  */
 package com.marcusoliver.loan.tracker;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author marcu
  */
 public class InterestTrack extends javax.swing.JFrame {
 
+    private String filePath = "loan_data.txt";
     /**
      * Creates new form InterestTrack
      */
     public InterestTrack() {
         initComponents();
+        loadLoanData();
     }
-
+    
+    
+    private void loadLoanData() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            DefaultTableModel model = (DefaultTableModel) jtblInterestTrack.getModel();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length >= 5) { // Check if the line has at least 5 elements
+                    model.addRow(new Object[]{parts[0], Double.parseDouble(parts[1]), parts[3], parts[2], parts[4]});
+                } else {
+                    // Handle the case where the line has fewer than 5 elements
+                    // You can choose to skip the line, log an error, or take any other appropriate action
+                    System.out.println("Skipping line: " + line + " (Incorrect data format)");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle any IOException that occurs during file reading
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,7 +55,7 @@ public class InterestTrack extends javax.swing.JFrame {
 
         lbl_trackInt = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jtblInterestTrack = new javax.swing.JTable();
         btn_back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -36,7 +63,7 @@ public class InterestTrack extends javax.swing.JFrame {
         lbl_trackInt.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lbl_trackInt.setText("Tracking Interests");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtblInterestTrack.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -47,7 +74,7 @@ public class InterestTrack extends javax.swing.JFrame {
                 "Name", "Original Amount", "Start Date", "End Date/Paid ", "Interest (%)", "Total Due"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtblInterestTrack);
 
         btn_back.setText("Back");
         btn_back.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +154,7 @@ public class InterestTrack extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_back;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtblInterestTrack;
     private javax.swing.JLabel lbl_trackInt;
     // End of variables declaration//GEN-END:variables
 }
