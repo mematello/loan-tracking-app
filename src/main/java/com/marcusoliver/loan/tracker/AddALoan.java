@@ -134,12 +134,13 @@ public class AddALoan extends javax.swing.JFrame {
 
     private void jbtnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubmitActionPerformed
         // Get values from text fields
-        Instant instant = Instant.now();
+        ZoneId z = ZoneId.of("Asia/Manila");
+        LocalDate today = LocalDate.now(z);
         String borrowerName = jTextField2.getText();
         double amountRequested = Double.parseDouble(jTextField1.getText());
         String dueDate = jTextField3.getText();
         String selectedLoanType = loanType.getSelectedItem().toString();
-        String startDate = instant.toString();
+        String startDate = today.toString();
         
         
         InterestTrack interestTrack = new InterestTrack();

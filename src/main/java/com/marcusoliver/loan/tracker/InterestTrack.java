@@ -47,27 +47,31 @@ public class InterestTrack extends javax.swing.JFrame {
                     // Determine interest rate based on loan type
                     switch (loanType) {
                         case "Education Loan":
+                        case "1.0":
                             interestRate = 0.01; // 1%
                             break;
                         case "House Loan":
+                        case "2.0":
                             interestRate = 0.02; // 2%
                             break;
                         case "Business Loan":
+                        case "3.0":
                             interestRate = 0.03; // 3%
                             break;
                         case "Car Loan":
+                        case "4.0":
                             interestRate = 0.04; // 4%
                             break;
                         default:
-                            // Handle unknown loan types
                             break;
                     }
 
                     // Calculate interest amount
-                    double interestAmount = amountRequested * interestRate;
+                    double totalDue = amountRequested * interestRate;
 
                     // Add the row to the table model
-                    model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate * 100});
+                    model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate * 100, });
+                    saveTrackData();
                 } else {
                     // Handle the case where the line has fewer than 5 elements
                     // You can choose to skip the line, log an error, or take any other appropriate action
@@ -77,7 +81,7 @@ public class InterestTrack extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error loading interest data: " + e.getMessage());
         }
-        saveTrackData();
+        
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -158,6 +162,9 @@ public class InterestTrack extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jtblInterestTrack.getModel();
         model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, loanType});
         saveTrackData();
+    }
+    public void saveIntRate(double interestRate){
+        
     }
     
     
