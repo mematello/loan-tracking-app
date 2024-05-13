@@ -60,7 +60,7 @@ public class AddATrack extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jbtnTrackPayment);
-        jbtnTrackPayment.setBounds(620, 310, 290, 55);
+        jbtnTrackPayment.setBounds(620, 310, 291, 55);
 
         jButton1.setText("Back");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -86,10 +86,10 @@ public class AddATrack extends javax.swing.JFrame {
         getContentPane().add(jButton2);
         jButton2.setBounds(620, 370, 290, 60);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\loanTracker\\loan-tracking-app\\src\\main\\java\\com\\marcusoliver\\loan\\tracker\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jeayan\\Pictures\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(0, 0, 1280, 720);
+        jLabel2.setBounds(0, 0, 1280, 600);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

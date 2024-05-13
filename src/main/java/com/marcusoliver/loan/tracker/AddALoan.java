@@ -5,7 +5,7 @@
 package com.marcusoliver.loan.tracker;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
+import java.time.*; 
 /**
  *
  * @author marcu
@@ -67,7 +67,7 @@ public class AddALoan extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("Name of Borrower");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(80, 200, 196, 32);
+        jLabel2.setBounds(80, 200, 194, 32);
 
         jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -81,7 +81,7 @@ public class AddALoan extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel3.setText("Amount Requested");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(80, 320, 203, 32);
+        jLabel3.setBounds(80, 320, 206, 32);
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         getContentPane().add(jTextField1);
@@ -116,7 +116,7 @@ public class AddALoan extends javax.swing.JFrame {
         getContentPane().add(jbtnBackToAddTrack);
         jbtnBackToAddTrack.setBounds(430, 440, 104, 39);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\loanTracker\\loan-tracking-app\\src\\main\\java\\com\\marcusoliver\\loan\\tracker\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jeayan\\Pictures\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
         jLabel7.setText("jLabel7");
         getContentPane().add(jLabel7);
         jLabel7.setBounds(0, -4, 1280, 730);
@@ -134,11 +134,16 @@ public class AddALoan extends javax.swing.JFrame {
 
     private void jbtnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubmitActionPerformed
         // Get values from text fields
+        Instant instant = Instant.now();
         String borrowerName = jTextField2.getText();
         double amountRequested = Double.parseDouble(jTextField1.getText());
         String dueDate = jTextField3.getText();
         String selectedLoanType = loanType.getSelectedItem().toString();
+        String startDate = instant.toString();
         
+        
+        InterestTrack interestTrack = new InterestTrack();
+        interestTrack.updateTable(borrowerName, amountRequested, startDate, dueDate, selectedLoanType);
 
         // Create an instance of TrackAPayment and update the table with loan data
         TrackAPayment trackAPayment = new TrackAPayment();

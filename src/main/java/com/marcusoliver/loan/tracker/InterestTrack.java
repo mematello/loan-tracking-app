@@ -5,7 +5,9 @@
 package com.marcusoliver.loan.tracker;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -16,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class InterestTrack extends javax.swing.JFrame {
 
-    private String filePath = "loan_data.txt";
+    private String filePath = "interest_data.txt";
     /**
      * Creates new form InterestTrack
      */
@@ -37,9 +39,8 @@ public class InterestTrack extends javax.swing.JFrame {
                 if (parts.length >= 5) { // Check if the line has at least 5 elements
                     String borrowerName = parts[0];
                     double amountRequested = Double.parseDouble(parts[1]);
-                    String startDate = ""; // Blank start date
-                    String status = parts[3];
-                    String endDate = parts[2]; // End date or paid date
+                    String startDate = parts[2]; // Blank start date
+                    String endDate = parts[3]; // End date or paid date
                     String loanType = parts[4];
                     double interestRate = 0.0; // Default interest rate
 
@@ -76,7 +77,7 @@ public class InterestTrack extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error loading interest data: " + e.getMessage());
         }
-
+        saveTrackData();
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -126,10 +127,10 @@ public class InterestTrack extends javax.swing.JFrame {
         getContentPane().add(btn_back);
         btn_back.setBounds(21, 32, 72, 23);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\loanTracker\\loan-tracking-app\\src\\main\\java\\com\\marcusoliver\\loan\\tracker\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jeayan\\Pictures\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1321, 720);
+        jLabel1.setBounds(0, 0, 1020, 560);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -140,6 +141,26 @@ public class InterestTrack extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btn_backActionPerformed
 
+        private void saveTrackData() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            DefaultTableModel model = (DefaultTableModel) jtblInterestTrack.getModel();
+            for (int i = 0; i < model.getRowCount(); i++) {
+                writer.write(model.getValueAt(i, 0) + "," + model.getValueAt(i, 1) + "," + model.getValueAt(i, 2) + "," + model.getValueAt(i, 3) + "," + model.getValueAt(i, 4) + "," + model.getValueAt(i, 5)); // Write loan type at index 4
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error saving track data: " + e.getMessage());
+        }
+    }
+
+    
+    public void updateTable(String borrowerName, double amountRequested,String startDate, String endDate, String loanType) {
+        DefaultTableModel model = (DefaultTableModel) jtblInterestTrack.getModel();
+        model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, loanType});
+        saveTrackData();
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
