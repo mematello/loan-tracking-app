@@ -2,3 +2,5 @@ shan,5000.0,2024-07-11,Unpaid,House Loan
 asdf,12000.0,2024-09-23,Unpaid,Car Loan
 ASDF,21000.0,2024-09-27,Paid,House Loan
 carl,10000.0,2024-09-21,Unpaid,Business Loan
+MK,15000.0,2025-10-12,Unpaid,Car Loan
+e,123123.0,2030-12-20,Unpaid,House Loan

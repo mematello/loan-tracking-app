@@ -37,15 +37,16 @@ public class PayLoan extends javax.swing.JFrame {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
-                if (parts.length >= 5) { // Check if the line has at least 5 elements
+                if (parts.length >= 6) { // Check if the line has at least 7 elements
                     String borrowerName = parts[0];
                     double amountRequested = Double.parseDouble(parts[1]);
                     String startDate = parts[2]; // Blank start date
                     String endDate = parts[3]; // End date or paid date
                     String loanType = parts[4];
-                    double interestRate = 0.0; // Default interest rate
-
-                    // Determine interest rate based on loan type
+                    double interestRate = Double.parseDouble(parts[4]); // Interest rate
+                    double totalDue = Double.parseDouble(parts[5]); // Total due
+                    double amountPaid = Double.parseDouble(parts[6]); // Amount paid
+                    
                     switch (loanType) {
                         case "Education Loan":
                         case "1.0":
@@ -66,18 +67,11 @@ public class PayLoan extends javax.swing.JFrame {
                         default:
                             break;
                     }
-                    LocalDate dateStart = LocalDate.parse(startDate);
-                    LocalDate dateEnd = LocalDate.parse(endDate);
-                    
-                    
-                    // Calculate interest amount
-                    double totalDue = amountRequested + (amountRequested * interestRate);
 
                     // Add the row to the table model
-                    model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate * 100, totalDue });
-                    saveTrackData();
+                    model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate * 100, totalDue, amountPaid});
                 } else {
-                    // Handle the case where the line has fewer than 5 elements
+                    // Handle the case where the line has fewer than 7 elements
                     // You can choose to skip the line, log an error, or take any other appropriate action
                     System.out.println("Skipping line: " + line + " (Incorrect data format)");
                 }
@@ -85,14 +79,19 @@ public class PayLoan extends javax.swing.JFrame {
         } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Error loading interest data: " + e.getMessage());
         }
-        
     }
     
     private void saveTrackData() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             DefaultTableModel model = (DefaultTableModel) jtblPayLoanTable.getModel();
             for (int i = 0; i < model.getRowCount(); i++) {
-                writer.write(model.getValueAt(i, 0) + "," + model.getValueAt(i, 1) + "," + model.getValueAt(i, 2) + "," + model.getValueAt(i, 3) + "," + model.getValueAt(i, 4) + "," + model.getValueAt(i, 5)); // Write loan type at index 4
+                writer.write(model.getValueAt(i, 0) + ","
+                        + model.getValueAt(i, 1) + ","
+                        + model.getValueAt(i, 2) + ","
+                        + model.getValueAt(i, 3) + ","
+                        + model.getValueAt(i, 4) + ","
+                        + model.getValueAt(i, 5) + ","
+                        + model.getValueAt(i, 6));        // Amount Paid
                 writer.newLine();
             }
         } catch (IOException e) {
@@ -128,6 +127,11 @@ public class PayLoan extends javax.swing.JFrame {
                 "Name", "Original Amount", "Start Date", "End Date/Paid ", "Interest (%)", "Total Due", "Amount Paid"
             }
         ));
+        jtblPayLoanTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtblPayLoanTableMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jtblPayLoanTable);
 
         btn_back.setText("Back");
@@ -179,6 +183,35 @@ public class PayLoan extends javax.swing.JFrame {
         at.setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_backActionPerformed
+
+    private void jtblPayLoanTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblPayLoanTableMouseClicked
+        int row = jtblPayLoanTable.getSelectedRow();
+        if (row != -1) {
+            String borrowerName = (String) jtblPayLoanTable.getValueAt(row, 0);
+            double totalDue = (double) jtblPayLoanTable.getValueAt(row, 5);
+            double currentAmountPaid = (double) jtblPayLoanTable.getValueAt(row, 6);
+
+            // Prompt user to pay an amount
+            String input = JOptionPane.showInputDialog("Enter amount to pay for " + borrowerName + ":");
+            if (input != null && !input.isEmpty()) {
+                double amountPaid = Double.parseDouble(input);
+
+                // Calculate the remaining amount after payment
+                double remainingAmount = totalDue - amountPaid;
+
+                // Ensure the remaining amount doesn't become negative
+                if (remainingAmount < 0) {
+                    JOptionPane.showMessageDialog(this, "Amount paid exceeds the total due.");
+                    return; // Exit the method without further processing
+                }
+
+                // Update the table with the correct values
+                jtblPayLoanTable.setValueAt(remainingAmount, row, 5);
+                jtblPayLoanTable.setValueAt(currentAmountPaid + amountPaid, row, 6);
+                saveTrackData();
+            }
+        }
+    }//GEN-LAST:event_jtblPayLoanTableMouseClicked
 
     /**
      * @param args the command line arguments
