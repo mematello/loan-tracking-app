@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.time.*; 
 
 /**
  *
@@ -65,12 +66,15 @@ public class InterestTrack extends javax.swing.JFrame {
                         default:
                             break;
                     }
-
+                    LocalDate dateStart = LocalDate.parse(startDate);
+                    LocalDate dateEnd = LocalDate.parse(endDate);
+                    
+                    
                     // Calculate interest amount
-                    double totalDue = amountRequested * interestRate;
+                    double totalDue = amountRequested + (amountRequested * interestRate);
 
                     // Add the row to the table model
-                    model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate * 100, });
+                    model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate * 100,totalDue });
                     saveTrackData();
                 } else {
                     // Handle the case where the line has fewer than 5 elements
@@ -134,7 +138,7 @@ public class InterestTrack extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jeayan\\Pictures\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
         jLabel1.setText("jLabel1");
         getContentPane().add(jLabel1);
-        jLabel1.setBounds(0, 0, 1020, 560);
+        jLabel1.setBounds(0, 0, 1350, 600);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

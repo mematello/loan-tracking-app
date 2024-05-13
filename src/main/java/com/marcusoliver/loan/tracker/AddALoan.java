@@ -119,7 +119,7 @@ public class AddALoan extends javax.swing.JFrame {
         jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jeayan\\Pictures\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
         jLabel7.setText("jLabel7");
         getContentPane().add(jLabel7);
-        jLabel7.setBounds(0, -4, 1280, 730);
+        jLabel7.setBounds(0, -14, 1280, 720);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
