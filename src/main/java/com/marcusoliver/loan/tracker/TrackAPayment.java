@@ -185,7 +185,6 @@ public class TrackAPayment extends javax.swing.JFrame {
         getContentPane().add(loanType);
         loanType.setBounds(826, 306, 110, 40);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jeayan\\Pictures\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
         jLabel3.setText("jLabel3");
         jLabel3.setMaximumSize(new java.awt.Dimension(1920, 720));
         jLabel3.setMinimumSize(new java.awt.Dimension(1920, 720));

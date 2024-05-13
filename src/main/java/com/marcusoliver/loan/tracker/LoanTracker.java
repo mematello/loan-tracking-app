@@ -11,6 +11,7 @@ package com.marcusoliver.loan.tracker;
 public class LoanTracker {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
-    }
+        UserInfo ui = new UserInfo();
+        ui.setVisible(true);
+     }
 }

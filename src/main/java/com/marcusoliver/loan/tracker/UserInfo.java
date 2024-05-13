@@ -67,7 +67,6 @@ public class UserInfo extends javax.swing.JFrame {
         getContentPane().add(jButton1);
         jButton1.setBounds(330, 320, 110, 30);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon("C:\\loanTracker\\loan-tracking-app\\src\\main\\java\\com\\marcusoliver\\loan\\tracker\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
         jLabel3.setText("jLabel3");
         getContentPane().add(jLabel3);
         jLabel3.setBounds(0, 0, 1280, 720);

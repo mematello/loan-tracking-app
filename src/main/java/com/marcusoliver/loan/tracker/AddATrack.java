@@ -31,6 +31,7 @@ public class AddATrack extends javax.swing.JFrame {
         jbtnTrackPayment = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,7 +51,7 @@ public class AddATrack extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jbtnAddLoan);
-        jbtnAddLoan.setBounds(370, 310, 230, 120);
+        jbtnAddLoan.setBounds(370, 310, 230, 55);
 
         jbtnTrackPayment.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         jbtnTrackPayment.setText("Track a Payment");
@@ -60,7 +61,7 @@ public class AddATrack extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jbtnTrackPayment);
-        jbtnTrackPayment.setBounds(620, 310, 291, 55);
+        jbtnTrackPayment.setBounds(620, 310, 290, 55);
 
         jButton1.setText("Back");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -86,10 +87,19 @@ public class AddATrack extends javax.swing.JFrame {
         getContentPane().add(jButton2);
         jButton2.setBounds(620, 370, 290, 60);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jeayan\\Pictures\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
+        jButton3.setText("Pay a Loan");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3);
+        jButton3.setBounds(370, 370, 230, 60);
+
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(0, 0, 1280, 600);
+        jLabel2.setBounds(10, 0, 1280, 600);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -153,6 +163,14 @@ public class AddATrack extends javax.swing.JFrame {
     dispose();
     }//GEN-LAST:event_jbtnAddLoanActionPerformed
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        PayLoan pl = new PayLoan();
+        pl.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        pl.setLocationRelativeTo(null);
+        pl.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -195,6 +213,7 @@ public class AddATrack extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jbtnAddLoan;

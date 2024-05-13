@@ -175,9 +175,6 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Jeayan\Pictures\Blue and White Modern Company Meeting Zoom Virtual Background.png"/>
-        </Property>
         <Property name="text" type="java.lang.String" value="jLabel3"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[1920, 720]"/>

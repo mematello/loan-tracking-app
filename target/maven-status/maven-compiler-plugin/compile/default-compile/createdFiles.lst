@@ -1,5 +1,6 @@
 com\marcusoliver\loan\tracker\InterestTrack.class
 com\marcusoliver\loan\tracker\AddATrack$3.class
+com\marcusoliver\loan\tracker\PayLoan.class
 com\marcusoliver\loan\tracker\AddATrack$1.class
 com\marcusoliver\loan\tracker\TrackAPayment$2.class
 com\marcusoliver\loan\tracker\AddATrack.class
@@ -11,6 +12,7 @@ com\marcusoliver\loan\tracker\InterestTrack$1.class
 com\marcusoliver\loan\tracker\AddALoan$1.class
 com\marcusoliver\loan\tracker\UserInfo.class
 com\marcusoliver\loan\tracker\InterestTrack$2.class
+com\marcusoliver\loan\tracker\PayLoan$2.class
 com\marcusoliver\loan\tracker\TrackAPayment$11.class
 com\marcusoliver\loan\tracker\TrackAPayment.class
 com\marcusoliver\loan\tracker\AddATrack$4.class
@@ -22,6 +24,8 @@ com\marcusoliver\loan\tracker\AddATrack$2.class
 com\marcusoliver\loan\tracker\TrackAPayment$5.class
 com\marcusoliver\loan\tracker\AddALoan$4.class
 com\marcusoliver\loan\tracker\LoanTracker.class
+com\marcusoliver\loan\tracker\AddATrack$7.class
+com\marcusoliver\loan\tracker\PayLoan$1.class
 com\marcusoliver\loan\tracker\TrackAPayment$1.class
 com\marcusoliver\loan\tracker\AddATrack$5.class
 com\marcusoliver\loan\tracker\TrackAPayment$7.class
