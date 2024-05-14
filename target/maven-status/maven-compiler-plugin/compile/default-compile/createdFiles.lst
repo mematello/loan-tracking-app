@@ -13,6 +13,7 @@ com\marcusoliver\loan\tracker\AddALoan$1.class
 com\marcusoliver\loan\tracker\UserInfo.class
 com\marcusoliver\loan\tracker\InterestTrack$2.class
 com\marcusoliver\loan\tracker\PayLoan$2.class
+com\marcusoliver\loan\tracker\AddALoan$6.class
 com\marcusoliver\loan\tracker\TrackAPayment$11.class
 com\marcusoliver\loan\tracker\TrackAPayment.class
 com\marcusoliver\loan\tracker\AddATrack$4.class
