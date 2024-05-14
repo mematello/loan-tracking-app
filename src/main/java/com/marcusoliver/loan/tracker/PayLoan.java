@@ -43,12 +43,13 @@ public class PayLoan extends javax.swing.JFrame {
 
                     double interestRate = Double.parseDouble(parts[4]);
                     double totalDue = Double.parseDouble(parts[5]);
+                    double amountPaid = Double.parseDouble(parts[6]);
 
                     
                     
                     
 
-                    model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate, totalDue, 0.0});
+                    model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate, totalDue, amountPaid});
                     
                 } catch (NumberFormatException e) {
                     System.out.println("Skipping line due to number format issue: " + line);
