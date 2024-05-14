@@ -201,14 +201,6 @@ public class AddATrack extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         InterestTrack it = new InterestTrack();
-        // Set the size of the JFrame to match the screen dimensions
-        it.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-        // Center the JFrame on the screen
-        it.setLocationRelativeTo(null);
-
-        // Make the JFrame visible
-        it.setVisible(true);
         it.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -245,8 +237,6 @@ public class AddATrack extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         PayLoan pl = new PayLoan();
-        pl.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        pl.setLocationRelativeTo(null);
         pl.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton3ActionPerformed
