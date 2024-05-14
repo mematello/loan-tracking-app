@@ -222,9 +222,6 @@ public class AddATrack extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 AddATrack at = new AddATrack();
-                // Set the size of the JFrame to match the screen dimensions
-                at.setExtendedState(JFrame.MAXIMIZED_BOTH);
-                at.setLocationRelativeTo(null); // Center the JFrame on the screen
                 at.setVisible(true);
             }
         });
