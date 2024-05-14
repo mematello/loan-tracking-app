@@ -86,6 +86,7 @@ public class AddATrack extends javax.swing.JFrame {
 
         jLabel2.setText("Click the buttons to navigate");
 
+        jbtnAddLoan.setBackground(new java.awt.Color(252, 252, 252));
         jbtnAddLoan.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jbtnAddLoan.setText("Add Loan");
         jbtnAddLoan.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -95,6 +96,7 @@ public class AddATrack extends javax.swing.JFrame {
             }
         });
 
+        jbtnTrackPayment.setBackground(new java.awt.Color(252, 252, 252));
         jbtnTrackPayment.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jbtnTrackPayment.setText("Track Payment");
         jbtnTrackPayment.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -104,6 +106,7 @@ public class AddATrack extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(252, 252, 252));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton2.setText("Track an Interest");
         jButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -113,6 +116,7 @@ public class AddATrack extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setBackground(new java.awt.Color(252, 252, 252));
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton3.setText("Pay Loan");
         jButton3.setBorder(null);

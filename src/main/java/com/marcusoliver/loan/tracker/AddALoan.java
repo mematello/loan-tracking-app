@@ -85,6 +85,7 @@ public class AddALoan extends javax.swing.JFrame {
 
         jLabel6.setText("Type of Loan");
 
+        loanType.setBackground(new java.awt.Color(252, 252, 252));
         loanType.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         loanType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Car Loan", "House Loan", "Education Loan", "Business Loan" }));
         loanType.addActionListener(new java.awt.event.ActionListener() {
@@ -95,6 +96,7 @@ public class AddALoan extends javax.swing.JFrame {
 
         jLabel3.setText("Amount Requested");
 
+        jbtnSubmit.setBackground(new java.awt.Color(252, 252, 252));
         jbtnSubmit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jbtnSubmit.setText("Submit");
         jbtnSubmit.addActionListener(new java.awt.event.ActionListener() {
