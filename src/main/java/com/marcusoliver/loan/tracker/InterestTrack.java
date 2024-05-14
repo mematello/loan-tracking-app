@@ -18,6 +18,7 @@ import java.time.*;
  * @author marcu
  */
 public class InterestTrack extends javax.swing.JFrame {
+    
 
     private String filePath = "interest_data.txt";
     /**
@@ -66,9 +67,6 @@ public class InterestTrack extends javax.swing.JFrame {
                         default:
                             break;
                     }
-                    LocalDate dateStart = LocalDate.parse(startDate);
-                    LocalDate dateEnd = LocalDate.parse(endDate);
-                    
                     
                     // Calculate interest amount
                     double totalDue = amountRequested + (amountRequested * interestRate);
@@ -153,7 +151,9 @@ public class InterestTrack extends javax.swing.JFrame {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             DefaultTableModel model = (DefaultTableModel) jtblInterestTrack.getModel();
             for (int i = 0; i < model.getRowCount(); i++) {
-                writer.write(model.getValueAt(i, 0) + "," + model.getValueAt(i, 1) + "," + model.getValueAt(i, 2) + "," + model.getValueAt(i, 3) + "," + model.getValueAt(i, 4) + "," + model.getValueAt(i, 5)); // Write loan type at index 4
+                writer.write(model.getValueAt(i, 0) + "," + model.getValueAt(i, 1) + "," + 
+                        model.getValueAt(i, 2) + "," + model.getValueAt(i, 3) + "," + 
+                        model.getValueAt(i, 4) + "," + model.getValueAt(i, 5)); // Write loan type at index 4
                 writer.newLine();
             }
         } catch (IOException e) {

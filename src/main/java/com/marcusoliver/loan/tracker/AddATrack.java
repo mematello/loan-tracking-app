@@ -3,12 +3,32 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.marcusoliver.loan.tracker;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 /**
  *
  * @author marcu
  */
 public class AddATrack extends javax.swing.JFrame {
+    private String filePath = "interest_data.txt";
+    
+     // Assume this method is called when you want to save loan data
+    private void saveLoanData(String borrowerName, double amountRequested, String startDate, String endDate, String loanType, double totalDue) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(borrowerName + ","
+                    + amountRequested + ","
+                    + startDate + ","
+                    + endDate + ","
+                    + loanType + ","
+                    + totalDue);
+            writer.newLine();
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error saving loan data: " + e.getMessage());
+        }
+    }
 
     /**
      * Creates new form AddATrack

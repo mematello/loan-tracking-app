@@ -67,6 +67,7 @@ public class TrackAPayment extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jtblTrackPayment.getModel();
         model.addRow(new Object[]{borrowerName, amountRequested, dueDate, "Unpaid", loanType});
         saveLoanData();
+      
     }
 
     /**
@@ -517,6 +518,8 @@ public class TrackAPayment extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

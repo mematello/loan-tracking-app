@@ -9,7 +9,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.time.LocalDate;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,67 +19,48 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PayLoan extends javax.swing.JFrame {
 
-    String filePath = "interest_data.txt";
-    /**
-     * Creates new form PayLoan
-     */
+    private String filePath = "interest_data.txt";
+
     public PayLoan() {
         initComponents();
         loadLoanData();
     }
-    
+
     public void loadLoanData() {
         DefaultTableModel model = (DefaultTableModel) jtblPayLoanTable.getModel();
-        model.setRowCount(0); // Reset the row count to remove existing rows
+    model.setRowCount(0);
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length >= 6) { // Check if the line has at least 7 elements
+    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(",");
+            if (parts.length >= 6) {
+                try {
                     String borrowerName = parts[0];
                     double amountRequested = Double.parseDouble(parts[1]);
-                    String startDate = parts[2]; // Blank start date
-                    String endDate = parts[3]; // End date or paid date
-                    String loanType = parts[4];
-                    double interestRate = Double.parseDouble(parts[4]); // Interest rate
-                    double totalDue = Double.parseDouble(parts[5]); // Total due
-                    double amountPaid = Double.parseDouble(parts[6]); // Amount paid
-                    
-                    switch (loanType) {
-                        case "Education Loan":
-                        case "1.0":
-                            interestRate = 0.01; // 1%
-                            break;
-                        case "House Loan":
-                        case "2.0":
-                            interestRate = 0.02; // 2%
-                            break;
-                        case "Business Loan":
-                        case "3.0":
-                            interestRate = 0.03; // 3%
-                            break;
-                        case "Car Loan":
-                        case "4.0":
-                            interestRate = 0.04; // 4%
-                            break;
-                        default:
-                            break;
-                    }
+                    String startDate = parts[2];
+                    String endDate = parts[3];
 
-                    // Add the row to the table model
-                    model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate * 100, totalDue, amountPaid});
-                } else {
-                    // Handle the case where the line has fewer than 7 elements
-                    // You can choose to skip the line, log an error, or take any other appropriate action
-                    System.out.println("Skipping line: " + line + " (Incorrect data format)");
+                    double interestRate = Double.parseDouble(parts[4]);
+                    double totalDue = Double.parseDouble(parts[5]);
+
+                    
+                    
+                    
+
+                    model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate, totalDue, 0.0});
+                    
+                } catch (NumberFormatException e) {
+                    System.out.println("Skipping line due to number format issue: " + line);
                 }
+            } else {
+                System.out.println("Skipping line: " + line + " (Incorrect data format)");
             }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error loading interest data: " + e.getMessage());
         }
+    } catch (IOException e) {
+        JOptionPane.showMessageDialog(this, "Error loading interest data: " + e.getMessage());
     }
-    
+}
     private void saveTrackData() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             DefaultTableModel model = (DefaultTableModel) jtblPayLoanTable.getModel();
@@ -98,6 +78,7 @@ public class PayLoan extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error saving track data: " + e.getMessage());
         }
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
