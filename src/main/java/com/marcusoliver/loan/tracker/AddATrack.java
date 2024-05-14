@@ -229,14 +229,6 @@ public class AddATrack extends javax.swing.JFrame {
     private void jbtnTrackPaymentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnTrackPaymentActionPerformed
 
     TrackAPayment tp = new  TrackAPayment();
-    // Set the size of the JFrame to match the screen dimensions
-    tp.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-    // Center the JFrame on the screen
-    tp.setLocationRelativeTo(null);
-
-    // Make the JFrame visible
-    tp.setVisible(true);
     tp.setVisible(true);
     dispose();
     }//GEN-LAST:event_jbtnTrackPaymentActionPerformed
@@ -244,13 +236,6 @@ public class AddATrack extends javax.swing.JFrame {
     private void jbtnAddLoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnAddLoanActionPerformed
         // Create an instance of AddALoan
     AddALoan al = new AddALoan();
-
-    // Set the size of the JFrame to match the screen dimensions
-    al.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
-    // Center the JFrame on the screen
-    al.setLocationRelativeTo(null);
-
     // Make the JFrame visible
     al.setVisible(true);
 
