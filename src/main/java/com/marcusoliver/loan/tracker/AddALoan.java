@@ -28,6 +28,7 @@ public class AddALoan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         loanType = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -39,7 +40,6 @@ public class AddALoan extends javax.swing.JFrame {
         jTextField3 = new javax.swing.JTextField();
         jbtnSubmit = new javax.swing.JButton();
         jbtnBackToAddTrack = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(null);
@@ -51,23 +51,15 @@ public class AddALoan extends javax.swing.JFrame {
                 loanTypeActionPerformed(evt);
             }
         });
-        getContentPane().add(loanType);
-        loanType.setBounds(600, 360, 460, 60);
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel6.setText("Type of Loan");
-        getContentPane().add(jLabel6);
-        jLabel6.setBounds(597, 320, 140, 32);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setText("Add a Loan");
-        getContentPane().add(jLabel1);
-        jLabel1.setBounds(79, 80, 290, 64);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel2.setText("Name of Borrower");
-        getContentPane().add(jLabel2);
-        jLabel2.setBounds(80, 200, 194, 32);
 
         jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -75,26 +67,16 @@ public class AddALoan extends javax.swing.JFrame {
                 jTextField2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField2);
-        jTextField2.setBounds(80, 240, 458, 62);
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel3.setText("Amount Requested");
-        getContentPane().add(jLabel3);
-        jLabel3.setBounds(80, 320, 206, 32);
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        getContentPane().add(jTextField1);
-        jTextField1.setBounds(80, 360, 458, 62);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel4.setText("Due");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(600, 200, 43, 32);
 
         jTextField3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        getContentPane().add(jTextField3);
-        jTextField3.setBounds(600, 240, 458, 62);
 
         jbtnSubmit.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jbtnSubmit.setText("Submit");
@@ -103,8 +85,6 @@ public class AddALoan extends javax.swing.JFrame {
                 jbtnSubmitActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtnSubmit);
-        jbtnSubmit.setBounds(600, 440, 120, 39);
 
         jbtnBackToAddTrack.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jbtnBackToAddTrack.setText("Back");
@@ -113,13 +93,78 @@ public class AddALoan extends javax.swing.JFrame {
                 jbtnBackToAddTrackActionPerformed(evt);
             }
         });
-        getContentPane().add(jbtnBackToAddTrack);
-        jbtnBackToAddTrack.setBounds(430, 440, 104, 39);
 
-        jLabel7.setIcon(new javax.swing.ImageIcon("C:\\Users\\Jeayan\\Pictures\\Blue and White Modern Company Meeting Zoom Virtual Background.png")); // NOI18N
-        jLabel7.setText("jLabel7");
-        getContentPane().add(jLabel7);
-        jLabel7.setBounds(0, -14, 1280, 720);
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(jbtnBackToAddTrack, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(960, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(1, 1, 1)
+                            .addComponent(jLabel2)
+                            .addGap(324, 324, 324)
+                            .addComponent(jLabel4))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(1, 1, 1)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(62, 62, 62)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(1, 1, 1)
+                            .addComponent(jLabel3)
+                            .addGap(311, 311, 311)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(1, 1, 1)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(62, 62, 62)
+                            .addComponent(loanType, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(521, 521, 521)
+                            .addComponent(jbtnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(68, 68, 68)
+                .addComponent(jbtnBackToAddTrack)
+                .addContainerGap(523, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel1)
+                    .addGap(56, 56, 56)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel2)
+                        .addComponent(jLabel4))
+                    .addGap(8, 8, 8)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3)
+                        .addComponent(jLabel6))
+                    .addGap(8, 8, 8)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(loanType, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addComponent(jbtnSubmit)
+                    .addGap(0, 0, Short.MAX_VALUE)))
+        );
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(90, 40, 1130, 630);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -210,7 +255,7 @@ public class AddALoan extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;

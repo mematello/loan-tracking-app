@@ -194,11 +194,6 @@ public class UserInfo extends javax.swing.JFrame {
             public void run() {
                 // Create an instance of UserInfo
             UserInfo ui = new UserInfo();
-            
-            // Set the size of the JFrame to match the screen dimensions
-            ui.setExtendedState(JFrame.MAXIMIZED_BOTH);
-            ui.setLocationRelativeTo(null); // Center the JFrame on the screen
-            // Make the JFrame visible
             ui.setVisible(true);
             }
         });
