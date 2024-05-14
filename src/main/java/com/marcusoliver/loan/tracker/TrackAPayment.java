@@ -287,6 +287,7 @@ public class TrackAPayment extends javax.swing.JFrame {
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNameActionPerformed

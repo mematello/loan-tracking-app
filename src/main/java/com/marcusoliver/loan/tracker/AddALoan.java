@@ -196,6 +196,7 @@ public class AddALoan extends javax.swing.JFrame {
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1280, 720));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void loanTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loanTypeActionPerformed
