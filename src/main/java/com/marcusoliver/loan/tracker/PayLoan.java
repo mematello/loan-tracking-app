@@ -4,6 +4,7 @@
  */
 package com.marcusoliver.loan.tracker;
 
+import com.marcusoliver.loan.tracker.NumericCellEditor.NumericDocument;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -11,15 +12,27 @@ import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JTextField;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
+import com.marcusoliver.loan.tracker.NumericCellEditor;
+
+
+
 
 /**
  *
  * @author marcu
  */
 public class PayLoan extends javax.swing.JFrame {
+    private NumericCellEditor numericCellEditor = new NumericCellEditor();
 
     private String filePath = "interest_data.txt";
+    String startDate;
 
     public PayLoan() {
         initComponents();
@@ -38,15 +51,11 @@ public class PayLoan extends javax.swing.JFrame {
                 try {
                     String borrowerName = parts[0];
                     double amountRequested = Double.parseDouble(parts[1]);
-                    String startDate = parts[2];
+                    startDate = parts[2];
                     String endDate = parts[3];
 
                     double interestRate = Double.parseDouble(parts[4]);
                     double totalDue = Double.parseDouble(parts[5]);
-
-                    
-                    
-                    
 
                     model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate, totalDue, 0.0});
                     
@@ -114,6 +123,7 @@ public class PayLoan extends javax.swing.JFrame {
         lbl_payloan.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lbl_payloan.setText("Pay a Loan");
 
+        lbl_tip.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         lbl_tip.setText("Click a row to pay the balance of selected borrower");
 
         jtblPayLoanTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -193,32 +203,29 @@ public class PayLoan extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_backActionPerformed
 
     private void jtblPayLoanTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblPayLoanTableMouseClicked
-        int row = jtblPayLoanTable.getSelectedRow();
-        if (row != -1) {
-            String borrowerName = (String) jtblPayLoanTable.getValueAt(row, 0);
-            double totalDue = (double) jtblPayLoanTable.getValueAt(row, 5);
-            double currentAmountPaid = (double) jtblPayLoanTable.getValueAt(row, 6);
+        
+    int selectedRow = jtblPayLoanTable.getSelectedRow();
 
-            // Prompt user to pay an amount
-            String input = JOptionPane.showInputDialog("Enter amount to pay for " + borrowerName + ":");
-            if (input != null && !input.isEmpty()) {
-                double amountPaid = Double.parseDouble(input);
+    if (selectedRow != -1) {
+        String borrowerName = (String) jtblPayLoanTable.getValueAt(selectedRow, 0);
 
-                // Calculate the remaining amount after payment
-                double remainingAmount = totalDue - amountPaid;
+        // Retrieve the selected row data
+        double totalDue = (double) jtblPayLoanTable.getValueAt(selectedRow, 5);
+        double amountPaid = (double) jtblPayLoanTable.getValueAt(selectedRow, 6);
+        double remainingAmount = totalDue - amountPaid;
+        String startDate = (String) jtblPayLoanTable.getValueAt(selectedRow, 2);
 
-                // Ensure the remaining amount doesn't become negative
-                if (remainingAmount < 0) {
-                    JOptionPane.showMessageDialog(this, "Amount paid exceeds the total due.");
-                    return; // Exit the method without further processing
-                }
+        // Check if the selected row is an original row (not a newly added row)
+        boolean isOriginalRow = (jtblPayLoanTable.getValueAt(selectedRow, 3) != null);
 
-                // Update the table with the correct values
-                jtblPayLoanTable.setValueAt(remainingAmount, row, 5);
-                jtblPayLoanTable.setValueAt(currentAmountPaid + amountPaid, row, 6);
-                saveTrackData();
-            }
+        if (isOriginalRow) {
+            // Create an instance of the CustomerBalance frame
+            CustomerBalance customerBalance = new CustomerBalance(borrowerName, totalDue, amountPaid, remainingAmount, startDate);
+            customerBalance.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "You cannot make a payment for this row.");
         }
+    }
     }//GEN-LAST:event_jtblPayLoanTableMouseClicked
 
     /**
@@ -252,7 +259,7 @@ public class PayLoan extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PayLoan().setVisible(true);
-            }
+             }
         });
     }
 

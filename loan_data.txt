@@ -1,5 +1,3 @@
+Dan ,7.0E17,2025-NOV-25,Unpaid,Car Loan
 Jane Smith,18000.0,2025-FEB-15,Unpaid,Education Loan
-Mike Johnson,32000.0,2025-MAR-12,Paid,House Loan
-Emily Davis,25000.0,2025-APR-20,Unpaid,Car Loan
-David Wilson,45000.0,2025-MAY-30,Unpaid,Business Loan
-Sarah Brown,22000.0,2025-JUN-22,Paid,Car Loan
+Dan Lester,9000000.0,2026-JUL-21,Unpaid,Car Loan

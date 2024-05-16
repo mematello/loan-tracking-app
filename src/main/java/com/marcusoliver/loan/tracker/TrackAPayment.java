@@ -18,12 +18,43 @@ import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.DefaultCellEditor;
+import javax.swing.JTextField;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
+
+
+
 
 /**
  *
  * @author marcu
  */
 public class TrackAPayment extends javax.swing.JFrame {
+    class NumericCellEditor extends DefaultCellEditor {
+    private JTextField textField;
+
+    public NumericCellEditor() {
+        super(new JTextField());
+        textField = (JTextField) getComponent();
+        textField.setDocument(new NumericDocument());
+    }
+
+    @Override
+    public Object getCellEditorValue() {
+        return textField.getText();
+    }
+
+    private class NumericDocument extends PlainDocument {
+        @Override
+        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+            if (str.matches("[0-9]*")) {
+                super.insertString(offs, str, a);
+            }
+        }
+    }
+}
     
     private String filePath = "loan_data.txt";
 
@@ -94,6 +125,8 @@ public class TrackAPayment extends javax.swing.JFrame {
         jbtnDate = new javax.swing.JButton();
         jbtnStatus = new javax.swing.JButton();
         loanType = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        searchbar = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1280, 720));
@@ -108,6 +141,7 @@ public class TrackAPayment extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Track a Payment");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel3.setText("Click a row to change status, click buttons to sort data");
 
         jbtnBack.setBackground(new java.awt.Color(204, 204, 204));
@@ -126,14 +160,20 @@ public class TrackAPayment extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jtblTrackPayment.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+jtblTrackPayment.setModel(new javax.swing.table.DefaultTableModel(
+    new Object [][] {},
+    new String [] {
+        "Borrower's Name", "Amount Requested", "Due", "Status", "Type of Loan"
+    }
+) {
+    @Override
+    public boolean isCellEditable(int row, int column) {
+        return column == 1; // Set this to the index of the "Amount Requested" column
+    }
+});
 
-            },
-            new String [] {
-                "Borrower's Name", "Amount Requested", "Due", "Status", "Type of Loan"
-            }
-        ));
+jtblTrackPayment.getColumnModel().getColumn(1).setCellEditor(new NumericCellEditor());
+
         jtblTrackPayment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jtblTrackPayment.setShowGrid(false);
         jtblTrackPayment.getTableHeader().setReorderingAllowed(false);
@@ -157,7 +197,6 @@ public class TrackAPayment extends javax.swing.JFrame {
             }
         });
 
-        jbtnAmountRequested.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         jbtnAmountRequested.setText("Amount Request");
         jbtnAmountRequested.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,6 +279,14 @@ public class TrackAPayment extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jLabel4.setText("Search:");
+
+        searchbar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchbarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -247,11 +294,19 @@ public class TrackAPayment extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3)
-                    .addComponent(jbtnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1038, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jbtnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(717, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(31, 31, 31))))
+            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 1110, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,7 +314,10 @@ public class TrackAPayment extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(jbtnBack, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel4)
+                    .addComponent(searchbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
@@ -274,12 +332,12 @@ public class TrackAPayment extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(111, 111, 111)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(109, Short.MAX_VALUE)
+                .addContainerGap(105, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(96, 96, 96))
         );
@@ -529,6 +587,10 @@ public class TrackAPayment extends javax.swing.JFrame {
         // Toggle sorting order for next click
         ascendingOrder = !ascendingOrder;
     }//GEN-LAST:event_loanTypeActionPerformed
+
+    private void searchbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchbarActionPerformed
     private void mergeSort(String[][] arr, int l, int r) {
         if (l < r) {
             int m = (l + r) / 2;
@@ -619,6 +681,7 @@ public class TrackAPayment extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -631,5 +694,6 @@ public class TrackAPayment extends javax.swing.JFrame {
     private javax.swing.JButton jbtnStatus;
     private javax.swing.JTable jtblTrackPayment;
     private javax.swing.JButton loanType;
+    private javax.swing.JTextField searchbar;
     // End of variables declaration//GEN-END:variables
 }
