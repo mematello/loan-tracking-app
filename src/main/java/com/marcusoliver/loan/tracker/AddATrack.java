@@ -84,6 +84,7 @@ public class AddATrack extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel2.setText("Click the buttons to navigate");
 
         jbtnAddLoan.setBackground(new java.awt.Color(252, 252, 252));

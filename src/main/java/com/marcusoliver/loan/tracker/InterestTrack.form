@@ -79,7 +79,6 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="jbtnName" max="32767" attributes="0"/>
                                   <Component id="jbtnAmountRequested" pref="155" max="32767" attributes="0"/>
-                                  <Component id="jbtnDate" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="btn_back" alignment="0" min="-2" pref="97" max="-2" attributes="0"/>
@@ -99,15 +98,13 @@
                       <Component id="lbl_trackInt" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane1" min="-2" pref="290" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jbtnName" min="-2" pref="45" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jbtnAmountRequested" min="-2" pref="45" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jbtnDate" min="-2" pref="45" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="27" max="32767" attributes="0"/>
@@ -197,6 +194,9 @@
             </Container>
             <Component class="javax.swing.JLabel" name="jLabel1">
               <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="14" style="3"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="You can find Interest and Total Due of the loan here!"/>
               </Properties>
             </Component>
@@ -214,14 +214,6 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnAmountRequestedActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="jbtnDate">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Date"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jbtnDateActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

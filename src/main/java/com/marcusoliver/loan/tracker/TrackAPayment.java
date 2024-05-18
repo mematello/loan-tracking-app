@@ -20,6 +20,10 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JTextField;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.TableRowSorter;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
@@ -61,6 +65,22 @@ public class TrackAPayment extends javax.swing.JFrame {
     public TrackAPayment() {
         initComponents();
         loadLoanData();
+        searchbar.getDocument().addDocumentListener(new DocumentListener() {
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            searchTable();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            searchTable();
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+            searchTable();
+        }
+    });
     }
 
     private void loadLoanData() {
@@ -81,6 +101,19 @@ public class TrackAPayment extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Error loading loan data: " + e.getMessage());
     }
     }
+    
+    private void searchTable() {
+    DefaultTableModel model = (DefaultTableModel) jtblTrackPayment.getModel();
+    TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+    jtblTrackPayment.setRowSorter(sorter);
+    
+    String text = searchbar.getText();
+    if (text.trim().length() == 0) {
+        sorter.setRowFilter(null);
+    } else {
+        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+    }
+}
 
     private void saveLoanData() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
@@ -160,20 +193,14 @@ public class TrackAPayment extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-jtblTrackPayment.setModel(new javax.swing.table.DefaultTableModel(
-    new Object [][] {},
-    new String [] {
-        "Borrower's Name", "Amount Requested", "Due", "Status", "Type of Loan"
-    }
-) {
-    @Override
-    public boolean isCellEditable(int row, int column) {
-        return column == 1; // Set this to the index of the "Amount Requested" column
-    }
-});
+        jtblTrackPayment.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-jtblTrackPayment.getColumnModel().getColumn(1).setCellEditor(new NumericCellEditor());
-
+            },
+            new String [] {
+                "Borrower's Name", "Amount Requested", "Due", "Status", "Type of Loan"
+            }
+        ));
         jtblTrackPayment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jtblTrackPayment.setShowGrid(false);
         jtblTrackPayment.getTableHeader().setReorderingAllowed(false);
@@ -589,7 +616,7 @@ jtblTrackPayment.getColumnModel().getColumn(1).setCellEditor(new NumericCellEdit
     }//GEN-LAST:event_loanTypeActionPerformed
 
     private void searchbarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchbarActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_searchbarActionPerformed
     private void mergeSort(String[][] arr, int l, int r) {
         if (l < r) {

@@ -135,7 +135,7 @@ public class UserInfo extends javax.swing.JFrame {
         // Check if the name is not empty
         if (!name.isEmpty()) {
             // Display the greeting message
-            JOptionPane.showMessageDialog(this, "Hello, " + name + "!");
+            JOptionPane.showMessageDialog(this, "Login, Successful!");
             
             AddATrack at = new AddATrack();
             at.setVisible(true);

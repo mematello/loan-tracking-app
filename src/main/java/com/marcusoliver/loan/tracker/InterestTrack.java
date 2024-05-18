@@ -35,7 +35,6 @@ public class InterestTrack extends javax.swing.JFrame {
         loadLoanData();
     }
     
-    
     private void loadLoanData() {
         DefaultTableModel model = (DefaultTableModel) jtblInterestTrack.getModel();
         model.setRowCount(0); // Reset the row count to remove existing rows
@@ -109,7 +108,6 @@ public class InterestTrack extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jbtnName = new javax.swing.JButton();
         jbtnAmountRequested = new javax.swing.JButton();
-        jbtnDate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -141,6 +139,7 @@ public class InterestTrack extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jtblInterestTrack);
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         jLabel1.setText("You can find Interest and Total Due of the loan here!");
 
         jbtnName.setText("Name");
@@ -157,13 +156,6 @@ public class InterestTrack extends javax.swing.JFrame {
             }
         });
 
-        jbtnDate.setText("Date");
-        jbtnDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbtnDateActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -176,8 +168,7 @@ public class InterestTrack extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jbtnName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbtnAmountRequested, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                            .addComponent(jbtnDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jbtnAmountRequested, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))
                     .addComponent(btn_back, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addComponent(lbl_trackInt, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -192,15 +183,13 @@ public class InterestTrack extends javax.swing.JFrame {
                 .addComponent(lbl_trackInt)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addGap(40, 40, 40)
+                .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jbtnName, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jbtnAmountRequested, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbtnDate, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jbtnAmountRequested, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
@@ -232,42 +221,6 @@ public class InterestTrack extends javax.swing.JFrame {
         at.setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_backActionPerformed
-
-    private void jbtnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnDateActionPerformed
-        // Extracting the data from the table
-        DefaultTableModel model = (DefaultTableModel) jtblInterestTrack.getModel();
-        int rowCount = model.getRowCount();
-        Object[][] data = new Object[rowCount][5]; // Assuming 5 columns
-
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < 5; j++) {
-                data[i][j] = model.getValueAt(i, j);
-            }
-        }
-
-        // Sorting the data based on the date column using Arrays.sort method
-        Arrays.sort(data, new Comparator<Object[]>() {
-            @Override
-            public int compare(Object[] row1, Object[] row2) {
-                String date1 = (String) row1[2]; // Assuming date is at index 2
-                String date2 = (String) row2[2]; // Assuming date is at index 2
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd", Locale.ENGLISH);
-                try {
-                    return sdf.parse(date1).compareTo(sdf.parse(date2));
-                } catch (ParseException ex) {
-                    ex.printStackTrace();
-                    return 0;
-                }
-            }
-        });
-
-        // Updating the table with the sorted data
-        for (int i = 0; i < rowCount; i++) {
-            for (int j = 0; j < 5; j++) {
-                model.setValueAt(data[i][j], i, j);
-            }
-        }
-    }//GEN-LAST:event_jbtnDateActionPerformed
     Boolean unpaidFirst = false;
     private void jbtnNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnNameActionPerformed
         // TODO add your handling code here:
@@ -446,7 +399,6 @@ public class InterestTrack extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbtnAmountRequested;
-    private javax.swing.JButton jbtnDate;
     private javax.swing.JButton jbtnName;
     private javax.swing.JTable jtblInterestTrack;
     private javax.swing.JLabel lbl_trackInt;
