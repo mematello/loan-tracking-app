@@ -3,6 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.marcusoliver.loan.tracker;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.time.*; 
@@ -223,26 +227,73 @@ public class AddALoan extends javax.swing.JFrame {
         String dueDate = jTextField3.getText();
         String selectedLoanType = loanType.getSelectedItem().toString();
         String startDate = today.toString();
+        double interestRate = 0.0;
         
+        switch(selectedLoanType){
+            case "Educational Loan":
+                interestRate = 0.1;
+                break;
+            case "House Loan":
+                interestRate = 0.2;
+                break;
+            case "Business Loan":
+                interestRate = 0.3;
+                break;
+            case "Car Loan":
+                interestRate = 0.4;
+                break;
+            default:
+                break;
+        }
         
-        InterestTrack interestTrack = new InterestTrack();
-        interestTrack.updateTable(borrowerName, amountRequested, startDate, dueDate, selectedLoanType);
+        double totalDue = amountRequested + ( amountRequested * interestRate); 
+        
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try {
+            // Establishing connection
+            conn = DatabaseConnection.getConnection();
 
-        // Create an instance of TrackAPayment and update the table with loan data
-        TrackAPayment trackAPayment = new TrackAPayment();
-        trackAPayment.updateTable(borrowerName, amountRequested, dueDate, selectedLoanType);
+            // SQL Insert statement
+            String sql = "INSERT INTO loantracktbl (borrower_name, amount_requested, due_date, type_of_loan, total_due) VALUES (?, ?, ?, ?, ?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, borrowerName);
+            pstmt.setDouble(2, amountRequested);
+            pstmt.setString(3, dueDate);
+            pstmt.setString(4, selectedLoanType);
+            pstmt.setDouble(5, totalDue);
 
-        // Show TrackAPayment frame
-        trackAPayment.setVisible(true);
+            // Execute the insertion
+            pstmt.executeUpdate();
+
+            // Show success message
+            JOptionPane.showMessageDialog(this, "Loan details submitted successfully!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error inserting data: " + e.getMessage());
+        } finally {
+            // Close resources
+            try {
+                if (pstmt != null) {
+                    pstmt.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        
+        new AddATrack().setVisible(true);
         dispose();
-
-        JOptionPane.showMessageDialog(this, "Submitted!");
         
     }//GEN-LAST:event_jbtnSubmitActionPerformed
 
     private void jbtnBackToAddTrackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnBackToAddTrackActionPerformed
-        AddATrack at = new AddATrack();
-        at.setVisible(true);
+        new AddATrack().setVisible(true);
         dispose();
     }//GEN-LAST:event_jbtnBackToAddTrackActionPerformed
 
@@ -280,8 +331,7 @@ public class AddALoan extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddALoan al = new AddALoan();
-                al.setVisible(true);
+                new AddALoan().setVisible(true);
             }
         });
     }

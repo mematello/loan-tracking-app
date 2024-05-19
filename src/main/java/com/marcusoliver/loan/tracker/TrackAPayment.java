@@ -3,32 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.marcusoliver.loan.tracker;
-import java.awt.List;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Locale;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JTextField;
 import javax.swing.RowFilter;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.TableRowSorter;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.PlainDocument;
-
-
 
 
 /**
@@ -36,103 +26,88 @@ import javax.swing.text.PlainDocument;
  * @author marcu
  */
 public class TrackAPayment extends javax.swing.JFrame {
-    class NumericCellEditor extends DefaultCellEditor {
-    private JTextField textField;
-
-    public NumericCellEditor() {
-        super(new JTextField());
-        textField = (JTextField) getComponent();
-        textField.setDocument(new NumericDocument());
-    }
-
-    @Override
-    public Object getCellEditorValue() {
-        return textField.getText();
-    }
-
-    private class NumericDocument extends PlainDocument {
-        @Override
-        public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
-            if (str.matches("[0-9]*")) {
-                super.insertString(offs, str, a);
-            }
-        }
-    }
-}
     
-    private String filePath = "loan_data.txt";
 
     public TrackAPayment() {
         initComponents();
-        loadLoanData();
         searchbar.getDocument().addDocumentListener(new DocumentListener() {
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-            searchTable();
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-            searchTable();
-        }
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-            searchTable();
-        }
-    });
-    }
-
-    private void loadLoanData() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-        DefaultTableModel model = (DefaultTableModel) jtblTrackPayment.getModel();
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(",");
-            if (parts.length >= 5) { // Check if the line has at least 5 elements
-                model.addRow(new Object[]{parts[0], Double.parseDouble(parts[1]), parts[2], parts[3], parts[4]});
-            } else {
-                // Handle the case where the line has fewer than 5 elements
-                // You can choose to skip the line, log an error, or take any other appropriate action
-                System.out.println("Skipping line: " + line + " (Incorrect data format)");
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                searchTable();
             }
-        }
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(this, "Error loading loan data: " + e.getMessage());
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                searchTable();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                searchTable();
+            }
+        });
+        loadDataFromDatabase();
     }
-    }
+
+    
     
     private void searchTable() {
-    DefaultTableModel model = (DefaultTableModel) jtblTrackPayment.getModel();
-    TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
-    jtblTrackPayment.setRowSorter(sorter);
-    
-    String text = searchbar.getText();
-    if (text.trim().length() == 0) {
-        sorter.setRowFilter(null);
-    } else {
-        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
-    }
-}
+        DefaultTableModel model = (DefaultTableModel) jtblTrackPayment.getModel();
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(model);
+        jtblTrackPayment.setRowSorter(sorter);
 
-    private void saveLoanData() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            DefaultTableModel model = (DefaultTableModel) jtblTrackPayment.getModel();
-            for (int i = 0; i < model.getRowCount(); i++) {
-                writer.write(model.getValueAt(i, 0) + "," + model.getValueAt(i, 1) + "," + model.getValueAt(i, 2) + "," + model.getValueAt(i, 3) + "," + model.getValueAt(i, 4)); // Write loan type at index 4
-                writer.newLine();
+        String text = searchbar.getText();
+        if (text.trim().isEmpty()) {
+            sorter.setRowFilter(null);
+        } else {
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+        }
+    }
+    
+    private void loadDataFromDatabase() {
+        DefaultTableModel model = (DefaultTableModel) jtblTrackPayment.getModel();
+        model.setRowCount(0); // Clear any existing data
+
+        String query = "SELECT borrower_name,amount_requested, start_date, due_date, status, type_of_loan, total_due, amount_paid FROM loantracktbl";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String borrowerName = rs.getString("borrower_name");
+                String amountRequested = rs.getString("amount_requested");
+                String startDate = rs.getString("start_date");
+                String dueDate = rs.getString("due_date");
+                String status = rs.getString("status");
+                String loanType = rs.getString("type_of_loan");
+                double interestRate = 0;
+                double totalDue = rs.getDouble("total_due");
+                String amountPaid = rs.getString("amount_paid");
+                
+                switch (loanType) {
+                    case "Educational Loan":
+                        interestRate = 0.1;
+                        break;
+                    case "House Loan":
+                        interestRate = 0.2;
+                        break;
+                    case "Business Loan":
+                        interestRate = 0.3;
+                        break;
+                    case "Car Loan":
+                        interestRate = 0.4;
+                        break;
+                    default:
+                        break;
+                }
+
+                model.addRow(new Object[]{borrowerName, amountRequested, startDate, dueDate, status, loanType, interestRate, totalDue, amountPaid});
             }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error saving loan data: " + e.getMessage());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void updateTable(String borrowerName, double amountRequested, String dueDate, String loanType) {
-        DefaultTableModel model = (DefaultTableModel) jtblTrackPayment.getModel();
-        model.addRow(new Object[]{borrowerName, amountRequested, dueDate, "Unpaid", loanType});
-        saveLoanData();
-      
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -198,7 +173,7 @@ public class TrackAPayment extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Borrower's Name", "Amount Requested", "Due", "Status", "Type of Loan"
+                "Borrower's Name", "Amount Requested", "Start Date", "Due Date", "Status", "Type of Loan", "Interest Rate", "Total Due", "Amount Paid"
             }
         ));
         jtblTrackPayment.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -454,7 +429,7 @@ public class TrackAPayment extends javax.swing.JFrame {
             public int compare(Object[] row1, Object[] row2) {
                 String date1 = (String) row1[2]; // Assuming date is at index 2
                 String date2 = (String) row2[2]; // Assuming date is at index 2
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MMM-dd", Locale.ENGLISH);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
                 try {
                     return sdf.parse(date1).compareTo(sdf.parse(date2));
                 } catch (ParseException ex) {
@@ -483,9 +458,9 @@ public class TrackAPayment extends javax.swing.JFrame {
 
         // Iterate through the table data and categorize rows by status
         for (int i = 0; i < model.getRowCount(); i++) {
-            String status = (String) model.getValueAt(i, 3); // Assuming status is at index 3
-            Object[] row = new Object[5]; // Assuming 5 columns
-            for (int j = 0; j < 5; j++) {
+            String status = (String) model.getValueAt(i, 4); // Assuming status is at index 4
+            Object[] row = new Object[9]; // Assuming 5 columns
+            for (int j = 0; j < 8; j++) {
                 row[j] = model.getValueAt(i, j);
             }
             if (status.equals("Unpaid")) {
@@ -539,39 +514,9 @@ public class TrackAPayment extends javax.swing.JFrame {
     }//GEN-LAST:event_jbtnBackActionPerformed
 
     private void jtblTrackPaymentMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblTrackPaymentMouseClicked
-        int rowIndex = jtblTrackPayment.getSelectedRow();
-        if (rowIndex != -1) { // Check if a row is selected
-            String borrowerName = (String) jtblTrackPayment.getValueAt(rowIndex, 0); // Borrower's Name
-            String newStatus = JOptionPane.showInputDialog(this, "Enter new status for " + borrowerName + ":");
-            if (newStatus != null && !newStatus.isEmpty()) {
-                updateStatus(borrowerName, newStatus);
-            }
-        }
+        
     }//GEN-LAST:event_jtblTrackPaymentMouseClicked
-    
-    private void updateStatus(String borrowerName, String newStatus) {
-        DefaultTableModel model = (DefaultTableModel) jtblTrackPayment.getModel();
-        for (int i = 0; i < model.getRowCount(); i++) {
-            String name = (String) model.getValueAt(i, 0);
-            if (name.equals(borrowerName)) {
-                model.setValueAt(newStatus, i, 3); // Update the status in the table
-                saveLoanData(); // Save the updated data to the file
-                break;
-            }
-        }
-    }
 
-    
-    private void updateStatusFromTable(String borrowerName) {
-        String newStatus = JOptionPane.showInputDialog(this, "Enter new status for " + borrowerName + ":");
-        if (newStatus != null && !newStatus.isEmpty()) {
-            updateStatus(borrowerName, newStatus);
-        }
-    }
-    
-    
-    
-    
     private boolean ascendingOrder = true; // Flag to track sorting order
     private String previousSortedLoanType = ""; // Track the previously sorted loan type
     
@@ -696,8 +641,7 @@ public class TrackAPayment extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TrackAPayment trackAPayment = new TrackAPayment();
-                trackAPayment.setVisible(true);
+                new TrackAPayment().setVisible(true);
             }
         });
     }

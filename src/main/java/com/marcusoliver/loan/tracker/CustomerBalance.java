@@ -4,6 +4,10 @@
  */
 package com.marcusoliver.loan.tracker;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -227,9 +231,8 @@ public class CustomerBalance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
-
-        dispose();
-        
+     
+       dispose();
     }//GEN-LAST:event_btn_backActionPerformed
 
     /**
