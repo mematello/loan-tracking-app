@@ -45,6 +45,6 @@ com\marcusoliver\loan\tracker\UserInfo$1.class
 com\marcusoliver\loan\tracker\CustomerBalance.class
 com\marcusoliver\loan\tracker\AddALoan$2.class
 com\marcusoliver\loan\tracker\AddALoan.class
-com\marcusoliver\loan\tracker\CustomerBalance$3.class
 com\marcusoliver\loan\tracker\InterestTrack$3.class
 com\marcusoliver\loan\tracker\TrackAPayment$4.class
+com\marcusoliver\loan\tracker\UserInfo$4.class

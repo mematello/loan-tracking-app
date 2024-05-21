@@ -220,31 +220,11 @@ public class AddALoan extends javax.swing.JFrame {
 
     private void jbtnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSubmitActionPerformed
         // Get values from text fields
-        ZoneId z = ZoneId.of("Asia/Manila");
-        LocalDate today = LocalDate.now(z);
         String borrowerName = jTextField2.getText();
         double amountRequested = Double.parseDouble(jTextField1.getText());
         String dueDate = jTextField3.getText();
         String selectedLoanType = loanType.getSelectedItem().toString();
-        String startDate = today.toString();
-        double interestRate = 0.0;
-        
-        switch(selectedLoanType){
-            case "Educational Loan":
-                interestRate = 0.1;
-                break;
-            case "House Loan":
-                interestRate = 0.2;
-                break;
-            case "Business Loan":
-                interestRate = 0.3;
-                break;
-            case "Car Loan":
-                interestRate = 0.4;
-                break;
-            default:
-                break;
-        }
+        double interestRate = PayLoan.interestEquivalence(selectedLoanType);
         
         double totalDue = amountRequested + ( amountRequested * interestRate); 
         

@@ -4,24 +4,11 @@
  */
 package com.marcusoliver.loan.tracker;
 
-import com.marcusoliver.loan.tracker.NumericCellEditor.NumericDocument;
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JTextField;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.PlainDocument;
-import com.marcusoliver.loan.tracker.NumericCellEditor;
-
-
 
 
 /**
@@ -29,64 +16,50 @@ import com.marcusoliver.loan.tracker.NumericCellEditor;
  * @author marcu
  */
 public class PayLoan extends javax.swing.JFrame {
-    private NumericCellEditor numericCellEditor = new NumericCellEditor();
-
-    private String filePath = "interest_data.txt";
-    String startDate;
 
     public PayLoan() {
         initComponents();
-        loadLoanData();
+        loadDataFromDatabase();
     }
-
-    public void loadLoanData() {
-        DefaultTableModel model = (DefaultTableModel) jtblPayLoanTable.getModel();
-    model.setRowCount(0);
-
-    try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(",");
-            if (parts.length >= 6) {
-                try {
-                    String borrowerName = parts[0];
-                    double amountRequested = Double.parseDouble(parts[1]);
-                    startDate = parts[2];
-                    String endDate = parts[3];
-
-                    double interestRate = Double.parseDouble(parts[4]);
-                    double totalDue = Double.parseDouble(parts[5]);
-
-                    model.addRow(new Object[]{borrowerName, amountRequested, startDate, endDate, interestRate, totalDue, 0.0});
-                    
-                    
-                    
-                } catch (NumberFormatException e) {
-                    System.out.println("Skipping line due to number format issue: " + line);
-                }
-            } else {
-                System.out.println("Skipping line: " + line + " (Incorrect data format)");
-            }
+    
+    
+    public static double interestEquivalence(String selectedLoanType){
+        switch(selectedLoanType){
+            case "Educational Loan":
+                return 0.01;
+            case "House Loan":
+                return 0.02;
+            case "Business Loan":
+                return 0.03;
+            case "Car Loan":
+                return 0.04;
         }
-    } catch (IOException e) {
-        JOptionPane.showMessageDialog(this, "Error loading interest data: " + e.getMessage());
+        return 0;
     }
-}
-    private void saveTrackData() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
-            DefaultTableModel model = (DefaultTableModel) jtblPayLoanTable.getModel();
-            for (int i = 0; i < model.getRowCount(); i++) {
-                writer.write(model.getValueAt(i, 0) + ","
-                        + model.getValueAt(i, 1) + ","
-                        + model.getValueAt(i, 2) + ","
-                        + model.getValueAt(i, 3) + ","
-                        + model.getValueAt(i, 4) + ","
-                        + model.getValueAt(i, 5) + ","
-                        + model.getValueAt(i, 6));        // Amount Paid
-                writer.newLine();
+    
+    private void loadDataFromDatabase() {
+        DefaultTableModel model = (DefaultTableModel) jtblPayLoanTable.getModel();
+        model.setRowCount(0); // Clear any existing data
+
+        String query = "SELECT borrower_name,amount_requested, start_date, due_date, type_of_loan, total_due, amount_paid FROM loantracktbl";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String borrowerName = rs.getString("borrower_name");
+                String amountRequested = rs.getString("amount_requested");
+                String startDate = rs.getString("start_date");
+                String dueDate = rs.getString("due_date");
+                String loanType = rs.getString("type_of_loan");
+                double interestRate = interestEquivalence(loanType);
+                double totalDue = rs.getDouble("total_due");
+                String amountPaid = rs.getString("amount_paid");
+
+                model.addRow(new Object[]{borrowerName, amountRequested, startDate, dueDate, interestRate, totalDue, amountPaid});
             }
-        } catch (IOException e) {
-            JOptionPane.showMessageDialog(this, "Error saving track data: " + e.getMessage());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     
@@ -136,7 +109,7 @@ public class PayLoan extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Original Amount", "Start Date", "End Date/Paid ", "Interest (%)", "Total Due", "Amount Paid"
+                "Name", "Amount Requested", "Start Date", "End Date/Paid ", "Interest (%)", "Total Due", "Amount Paid"
             }
         ));
         jtblPayLoanTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -199,35 +172,12 @@ public class PayLoan extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
-        AddATrack at = new AddATrack();
-        at.setVisible(true);
+        new AddATrack().setVisible(true);
         dispose();
     }//GEN-LAST:event_btn_backActionPerformed
 
     private void jtblPayLoanTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblPayLoanTableMouseClicked
-        
-    int selectedRow = jtblPayLoanTable.getSelectedRow();
 
-    if (selectedRow != -1) {
-        String borrowerName = (String) jtblPayLoanTable.getValueAt(selectedRow, 0);
-
-        // Retrieve the selected row data
-        double totalDue = (double) jtblPayLoanTable.getValueAt(selectedRow, 5);
-        double amountPaid = (double) jtblPayLoanTable.getValueAt(selectedRow, 6);
-        double remainingAmount = totalDue - amountPaid;
-        String startDate = (String) jtblPayLoanTable.getValueAt(selectedRow, 2);
-
-        // Check if the selected row is an original row (not a newly added row)
-        boolean isOriginalRow = (jtblPayLoanTable.getValueAt(selectedRow, 3) != null);
-
-        if (isOriginalRow) {
-            // Create an instance of the CustomerBalance frame
-            CustomerBalance customerBalance = new CustomerBalance(borrowerName, totalDue, amountPaid, remainingAmount, startDate);
-            customerBalance.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "You cannot make a payment for this row.");
-        }
-    }
     }//GEN-LAST:event_jtblPayLoanTableMouseClicked
 
     /**
@@ -256,7 +206,7 @@ public class PayLoan extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(PayLoan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

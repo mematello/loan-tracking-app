@@ -4,6 +4,7 @@
  */
 package com.marcusoliver.loan.tracker;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
 
@@ -50,6 +51,11 @@ public class UserInfo extends javax.swing.JFrame {
         jtxtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jtxtNameActionPerformed(evt);
+            }
+        });
+        jtxtName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jtxtNameKeyPressed(evt);
             }
         });
 
@@ -145,6 +151,25 @@ public class UserInfo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please enter your name!");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jtxtNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtNameKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            String name = jtxtName.getText();
+
+            // Check if the name is not empty
+            if (!name.isEmpty()) {
+                // Display the greeting message
+                JOptionPane.showMessageDialog(this, "Login, Successful!");
+
+                AddATrack at = new AddATrack();
+                at.setVisible(true);
+                dispose(); // Close the current JFrame
+            } else {
+                // Display an error message if the name is empty
+                JOptionPane.showMessageDialog(this, "Please enter your name!");
+            }
+        }
+    }//GEN-LAST:event_jtxtNameKeyPressed
 
     /**
      * @param args the command line arguments

@@ -32,91 +32,6 @@ public class CustomerBalance extends javax.swing.JFrame {
         initComponents();
     }
     
-    private void handleRowSelection(int selectedRow) {
-    
-    if (selectedRow == 0) { // Only handle the first row (index 0)
-        String borrowerName = (String) jtblCustomerBalance.getValueAt(selectedRow, 0);
-        double totalDue = (double) jtblCustomerBalance.getValueAt(selectedRow, 1);
-        double amountPaid = (double) jtblCustomerBalance.getValueAt(selectedRow, 2);
-        double remainingAmount = totalDue - amountPaid;
-
-        JTextField inputField = new JTextField();
-        inputField.setDocument(new javax.swing.text.PlainDocument() {
-            @Override
-            public void insertString(int offs, String str, javax.swing.text.AttributeSet a) throws javax.swing.text.BadLocationException {
-                if (str == null) {
-                    return;
-                }
-                if (getLength() + str.length() > 10) {
-                    return;
-                }
-                char[] chars = str.toCharArray();
-                int count = 0;
-                for (int i = 0; i < chars.length; i++) {
-                    if ((chars[i] >= '0') && (chars[i] <= '9')) {
-                        count++;
-                    }
-                }
-                if (count < chars.length) {
-                    javax.swing.JOptionPane.showMessageDialog(null, "Please enter numeric digits only.");
-                } else {
-                    super.insertString(offs, str, a);
-                }
-            }
-        });
-
-        Object[] message = {"Enter the amount you want to pay:", inputField};
-        int option = JOptionPane.showConfirmDialog(this, message, "Payment Input", JOptionPane.OK_CANCEL_OPTION);
-
-        if (option == JOptionPane.OK_OPTION) {
-            String input = inputField.getText();
-            if (!input.isEmpty()) {
-                try {
-                    double paymentAmount = Double.parseDouble(input);
-                    if (paymentAmount >= 0 && paymentAmount <= remainingAmount) {
-                        amountPaid += paymentAmount;
-                        remainingAmount = totalDue - amountPaid;
-                        LocalDate currentDate = LocalDate.now();
-                        String datePaid = currentDate.toString();
-
-                        DefaultTableModel model = (DefaultTableModel) jtblCustomerBalance.getModel();
-                        model.addRow(new Object[]{borrowerName, totalDue, paymentAmount, remainingAmount, datePaid});
-                        jtblCustomerBalance.setValueAt(amountPaid, selectedRow, 2);
-                        jtblCustomerBalance.setValueAt(remainingAmount, selectedRow, 3);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Invalid input. Please enter an amount between 0 and the remaining balance.", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "Invalid input. Please enter a numeric value.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
-    }
-}
-    
-    private void updateRemainingBalance(double totalDue, double amountPaid, int startRow) {
-    DefaultTableModel model = (DefaultTableModel) jtblCustomerBalance.getModel();
-    int rowCount = model.getRowCount();
-    for (int i = startRow; i < rowCount; i++) {
-        double remainingAmount = totalDue - amountPaid;
-        model.setValueAt(remainingAmount, i, 3);
-    }
-    
-    
-}
-    
-    public CustomerBalance(String borrowerName, double totalDue, double amountPaid, double remainingAmount, String datePaid) {
-        initComponents();
-        this.borrowerName = borrowerName;
-        this.totalDue = totalDue;
-        this.amountPaid = amountPaid;
-        this.datePaid = datePaid;
-        updateTable();
-    }
-     private void updateTable() {
-            DefaultTableModel model = (DefaultTableModel) jtblCustomerBalance.getModel();
-            model.addRow(new Object[]{borrowerName, totalDue, amountPaid, remainingAmount, datePaid});
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -231,7 +146,7 @@ public class CustomerBalance extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
-     
+
        dispose();
     }//GEN-LAST:event_btn_backActionPerformed
 
