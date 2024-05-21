@@ -5,9 +5,11 @@
 package com.marcusoliver.loan.tracker;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -41,11 +43,12 @@ public class PayLoan extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jtblPayLoanTable.getModel();
         model.setRowCount(0); // Clear any existing data
 
-        String query = "SELECT borrower_name,amount_requested, start_date, due_date, type_of_loan, total_due, amount_paid FROM loantracktbl";
+        String query = "SELECT borrower_id,borrower_name,amount_requested, start_date, due_date, type_of_loan, total_due, amount_paid FROM loantracktbl";
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
+                String borrower_id = rs.getString("borrower_id");
                 String borrowerName = rs.getString("borrower_name");
                 String amountRequested = rs.getString("amount_requested");
                 String startDate = rs.getString("start_date");
@@ -55,13 +58,46 @@ public class PayLoan extends javax.swing.JFrame {
                 double totalDue = rs.getDouble("total_due");
                 String amountPaid = rs.getString("amount_paid");
 
-                model.addRow(new Object[]{borrowerName, amountRequested, startDate, dueDate, interestRate, totalDue, amountPaid});
+                model.addRow(new Object[]{borrower_id, borrowerName, amountRequested, startDate, dueDate, interestRate, totalDue, amountPaid});
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+    
+    private void handlePayment(int borrowerId, double totalDue, double amountPaid, double paymentAmount) {
+        double newAmountPaid = amountPaid + paymentAmount;
+        double newTotalDue = totalDue - paymentAmount;
+
+        String updateLoanQuery = "UPDATE loantracktbl SET amount_paid = ?, total_due = ? WHERE borrower_id = ?";
+        String insertPaymentLogQuery = "INSERT INTO paymentlogs (borrower_id, amount_paid, date_paid) VALUES (?, ?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            // Update loan record
+            try (PreparedStatement updateStmt = conn.prepareStatement(updateLoanQuery)) {
+                updateStmt.setDouble(1, newAmountPaid);
+                updateStmt.setDouble(2, newTotalDue);
+                updateStmt.setInt(3, borrowerId);
+                updateStmt.executeUpdate();
+            }
+
+            // Insert into payment logs
+            try (PreparedStatement insertStmt = conn.prepareStatement(insertPaymentLogQuery)) {
+                insertStmt.setInt(1, borrowerId);
+                insertStmt.setDouble(2, paymentAmount);
+                insertStmt.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
+                insertStmt.executeUpdate();
+            }
+
+            // Reload the table data to reflect changes
+            loadDataFromDatabase();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     
 
     /**
@@ -103,13 +139,13 @@ public class PayLoan extends javax.swing.JFrame {
 
         jtblPayLoanTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Name", "Amount Requested", "Start Date", "End Date/Paid ", "Interest (%)", "Total Due", "Amount Paid"
+                "Borrower's ID", "Name", "Amount Requested", "Start Date", "End Date/Paid ", "Interest (%)", "Total Due", "Amount Paid"
             }
         ));
         jtblPayLoanTable.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -177,7 +213,19 @@ public class PayLoan extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_backActionPerformed
 
     private void jtblPayLoanTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtblPayLoanTableMouseClicked
+        int rowIndex = jtblPayLoanTable.getSelectedRow();
+        if (rowIndex != -1) { // If a row is selected
+            int borrowerId = Integer.parseInt(jtblPayLoanTable.getValueAt(rowIndex, 0).toString());
+            double totalDue = Double.parseDouble(jtblPayLoanTable.getValueAt(rowIndex, 6).toString());
+            double amountPaid = Double.parseDouble(jtblPayLoanTable.getValueAt(rowIndex, 7).toString());
 
+            String paymentAmountStr = JOptionPane.showInputDialog(this, "Enter the amount to pay:", "Pay Loan", JOptionPane.PLAIN_MESSAGE);
+            if (paymentAmountStr != null && !paymentAmountStr.trim().isEmpty()) {
+                double paymentAmount = Double.parseDouble(paymentAmountStr);
+                handlePayment(borrowerId, totalDue, amountPaid, paymentAmount);
+            }
+            new CustomerBalance().setVisible(true);
+        }
     }//GEN-LAST:event_jtblPayLoanTableMouseClicked
 
     /**

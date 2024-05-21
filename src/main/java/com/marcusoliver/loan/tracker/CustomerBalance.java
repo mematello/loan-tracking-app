@@ -4,7 +4,12 @@
  */
 package com.marcusoliver.loan.tracker;
 
+import static com.marcusoliver.loan.tracker.PayLoan.interestEquivalence;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,8 +35,33 @@ public class CustomerBalance extends javax.swing.JFrame {
      */
     public CustomerBalance(){
         initComponents();
+        loadDataFromDatabase();
     }
     
+    
+    private void loadDataFromDatabase() {
+        DefaultTableModel model = (DefaultTableModel) jtblCustomerBalance.getModel();
+        model.setRowCount(0); // Clear any existing data
+
+        String query = "SELECT paymentlogs.log_id,paymentlogs.borrower_id,loantracktbl.borrower_name,paymentlogs.amount_paid,paymentlogs.date_paid,loantracktbl.total_due FROM paymentlogs join loantracktbl;";
+
+        try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
+
+            while (rs.next()) {
+                String log_id = rs.getString("paymentlogs.log_id");
+                String borrower_name = rs.getString("loantracktbl.borrower_name");
+                String borrower_id = rs.getString("paymentlogs.borrower_id");
+                String amount_paid = rs.getString("paymentlogs.amount_paid");
+                String date_paid = rs.getString("paymentlogs.date_paid");
+                String remaining_balance = rs.getString("loantracktbl.total_due");
+
+                model.addRow(new Object[]{log_id, borrower_id, borrower_name, amount_paid,date_paid,remaining_balance});
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,14 +97,14 @@ public class CustomerBalance extends javax.swing.JFrame {
         lbl_history.setText("Customer Balance");
 
         lbl_tip.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
-        lbl_tip.setText("click on the first row to pay an amount");
+        lbl_tip.setText("Payment logs");
 
         jtblCustomerBalance.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Borrower's Name", "Total Due", "Amount Paid", "Balance Remaining", "Date of Payment"
+                "Log ID", "Borrower ID", "Borrower's Name", "Amount Paid", "Date of Payment", "Remaining Balance"
             }
         ));
         jScrollPane1.setViewportView(jtblCustomerBalance);
@@ -143,10 +173,12 @@ public class CustomerBalance extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
 
+       new AddATrack().setVisible(true);
        dispose();
     }//GEN-LAST:event_btn_backActionPerformed
 
