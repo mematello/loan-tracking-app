@@ -7,6 +7,7 @@ package com.marcusoliver.loan.tracker;
 import static com.marcusoliver.loan.tracker.PayLoan.interestEquivalence;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -43,19 +44,19 @@ public class CustomerBalance extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jtblCustomerBalance.getModel();
         model.setRowCount(0); // Clear any existing data
 
-        String query = "SELECT paymentlogs.log_id,paymentlogs.borrower_id,loantracktbl.borrower_name,paymentlogs.amount_paid,paymentlogs.date_paid,loantracktbl.total_due FROM paymentlogs join loantracktbl;";
+        String query = "SELECT paymentlogs.log_id, paymentlogs.borrower_id, loantracktbl.borrower_name, paymentlogs.amount_paid, paymentlogs.date_paid, paymentlogs.remaining_amount FROM paymentlogs JOIN loantracktbl ON paymentlogs.borrower_id = loantracktbl.borrower_id";
 
         try (Connection conn = DatabaseConnection.getConnection(); PreparedStatement stmt = conn.prepareStatement(query); ResultSet rs = stmt.executeQuery()) {
 
             while (rs.next()) {
-                String log_id = rs.getString("paymentlogs.log_id");
-                String borrower_name = rs.getString("loantracktbl.borrower_name");
-                String borrower_id = rs.getString("paymentlogs.borrower_id");
-                String amount_paid = rs.getString("paymentlogs.amount_paid");
-                String date_paid = rs.getString("paymentlogs.date_paid");
-                String remaining_balance = rs.getString("loantracktbl.total_due");
+                int log_id = rs.getInt("log_id");
+                int borrower_id = rs.getInt("borrower_id");
+                String borrower_name = rs.getString("borrower_name");
+                double amount_paid = rs.getDouble("amount_paid");
+                Date date_paid = rs.getDate("date_paid");
+                double remaining_balance = rs.getDouble("remaining_amount");
 
-                model.addRow(new Object[]{log_id, borrower_id, borrower_name, amount_paid,date_paid,remaining_balance});
+                model.addRow(new Object[]{log_id, borrower_id, borrower_name, amount_paid, date_paid, remaining_balance});
             }
 
         } catch (SQLException e) {

@@ -27,7 +27,7 @@ public class PayLoan extends javax.swing.JFrame {
     
     public static double interestEquivalence(String selectedLoanType){
         switch(selectedLoanType){
-            case "Educational Loan":
+            case "Education Loan":
                 return 0.01;
             case "House Loan":
                 return 0.02;
@@ -71,7 +71,7 @@ public class PayLoan extends javax.swing.JFrame {
         double newTotalDue = totalDue - paymentAmount;
 
         String updateLoanQuery = "UPDATE loantracktbl SET amount_paid = ?, total_due = ? WHERE borrower_id = ?";
-        String insertPaymentLogQuery = "INSERT INTO paymentlogs (borrower_id, amount_paid, date_paid) VALUES (?, ?, ?)";
+        String insertPaymentLogQuery = "INSERT INTO paymentlogs (borrower_id, amount_paid, date_paid, remaining_amount) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DatabaseConnection.getConnection()) {
             // Update loan record
@@ -87,6 +87,7 @@ public class PayLoan extends javax.swing.JFrame {
                 insertStmt.setInt(1, borrowerId);
                 insertStmt.setDouble(2, paymentAmount);
                 insertStmt.setDate(3, java.sql.Date.valueOf(java.time.LocalDate.now()));
+                insertStmt.setDouble(4, newTotalDue);
                 insertStmt.executeUpdate();
             }
 
